@@ -5,14 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MoralisProvider } from "react-moralis";
 
+import { BrowserRouter as Router } from "react-router-dom";
+
 ReactDOM.render(
   <React.StrictMode>
-    <MoralisProvider
-      appId="3czgt7nwHQy74dVhxNARk3xzoUnn4YAe3L9gwidF"
-      serverUrl="https://jcq7m8zxgwne.usemoralis.com:2053/server"
-    >
-      <App />
-    </MoralisProvider>
+    <Router>
+      <MoralisProvider
+        appId="3czgt7nwHQy74dVhxNARk3xzoUnn4YAe3L9gwidF"
+        serverUrl="https://jcq7m8zxgwne.usemoralis.com:2053/server"
+      >
+        <App />
+      </MoralisProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
