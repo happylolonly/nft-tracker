@@ -10,11 +10,19 @@ import {
 } from "react-moralis";
 import { Switch, Route, Link } from "react-router-dom";
 import LikedNfts from "pages/LikedNfts/LikedNfts";
+import Swipeable from "react-swipy/dist/react-swipy.esm";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [cards, setCards] = useState([["First", "Second", "Third"]]);
   const [activeItem, setActiveItem] = useState({});
   const { authenticate, isAuthenticated, user, logout } = useMoralis();
+  const wrapperStyles = {position: "relative", width: "250px", height: "250px"};
+  const actionsStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: 12,
+  };
 
   const Likes = useNewMoralisObject("Likes");
 
@@ -46,10 +54,13 @@ function App() {
     (async () => {
       const data = await raribleApi.getAllItems();
       setItems(data.data.items);
-
       const random = getRandomItem();
 
       getItemMetaById(data.data.items[random].id);
+    })();
+    (async () => {
+      const data = await fetch('https://picsum.photos/200/300?random=2');
+      // setCards(data.data.items);
     })();
   }, []);
 
@@ -95,11 +106,18 @@ function App() {
   }
 
   if (isEmpty(activeItem) || activeItem.attributes.length === 0) {
-    debugger;
     return null;
   }
 
-  console.log(activeItem);
+  const remove = () => {
+    console.log('remove');
+  }
+
+  const handleSwipe = (direction) => {
+    console.log(direction);
+  }
+
+  console.log(activeItem, 12312312);
 
   const {
     name,
@@ -136,14 +154,35 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <h3>{name}</h3>
-          <p>{description}</p>
-
-          <img src={BIG || ORIGINAL} alt="" />
 
           <div>
-            <button onClick={() => handleClick(true)}>Like</button>
-            <button onClick={() => handleClick(false)}>Dislike</button>
+            <div style={wrapperStyles}>
+              123123213
+              {cards.length > 0 ? (
+                <div style={wrapperStyles}>
+                  <Swipeable
+                    buttons={({left, right}) => (
+                      <div style={actionsStyles}>
+                        <span onClick={left}>Reject</span>
+                        <span onClick={right}>Accept</span>
+                      </div>
+                    )}
+                    onAfterSwipe={remove}
+                    onSwipe={handleSwipe}
+                  >
+                    <div>
+                      <h3>{name}</h3>
+                      <p>{description}</p>
+
+                      <img src={BIG || ORIGINAL} alt="" />
+                    </div>
+                  </Swipeable>
+                  {cards.length > 1 && <div style={{zIndex: "-1"}}>{cards[1]}</div>}
+                </div>
+              ) : (
+                <div style={{zIndex: "-2"}}>No more cards</div>
+              )}
+            </div>
           </div>
         </Route>
 
