@@ -96,7 +96,9 @@ function App() {
   function next() {
     const index = getRandomItem();
     // check !==
-    getItemMetaById(items[index].id);
+    if (items.length) {
+      getItemMetaById(items[index].id);
+    }
   }
 
   async function handleClick(isLike) {
@@ -131,7 +133,9 @@ function App() {
       <header>
         <div>
           {!isAuthenticated ? (
-            <button onClick={() => authenticate()}>Authenticate</button>
+            <button onClick={() => authenticate({ provider: "walletconnect" })}>
+              Authenticate
+            </button>
           ) : (
             <div>
               <h1>Welcome {user.get("username")}</h1>
@@ -151,6 +155,8 @@ function App() {
 
         <Link to="liked">Liked</Link>
       </header>
+
+   
 
       <Switch>
         <Route exact path="/">
