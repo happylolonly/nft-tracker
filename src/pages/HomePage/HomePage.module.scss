@@ -1,0 +1,32 @@
+.swipeLinkReject {
+  display: inline-block;
+  cursor: pointer;
+  color: red;
+  font-weight: 700;
+  z-index: 3;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.swipeLinkAccept {
+  display: inline-block;
+  cursor: pointer;
+  color: green;
+  font-weight: 700;
+  z-index: 3;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.imageWrapper {
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+}

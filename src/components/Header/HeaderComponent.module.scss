@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  min-height: 80px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 18px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.headerLink {
+  display: block;
+  padding: 0 10px;
+  text-decoration: none;
+  color: #ffffff;
+}
