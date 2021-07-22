@@ -9,7 +9,7 @@ const HeaderComponent = () => {
     <header className={classes.header}>
       <div className={classes.headerLink}>
         {!isAuthenticated ? (
-          <span onClick={() => authenticate()}>Authenticate</span>
+          <span onClick={() => authenticate({ provider: "walletconnect" })}>Authenticate</span>
         ) : (
           <div>
             <h1>Welcome {user.get("username")}</h1>
