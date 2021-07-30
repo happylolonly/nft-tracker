@@ -1,14 +1,19 @@
 import React from 'react'
 import styles from './Login.module.scss'
 import {useMoralis} from "react-moralis";
+import {useHistory} from "react-router-dom";
 
 const Login = () => {
   const { authenticate, isAuthenticated } = useMoralis();
+  const history = useHistory();
   const loginHandler = () => {
     if(!isAuthenticated) {
       authenticate({ provider: "walletconnect" })
         .then(res => {
-          console.log(res);
+          if(res) {
+            history.push('/home')
+          }
+          return
         })
         .catch(err => {
           console.log(err);
