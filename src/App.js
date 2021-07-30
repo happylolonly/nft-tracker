@@ -16,6 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/home" component={HomePage} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route path="/liked">
           <LikedNfts />
         </Route>
