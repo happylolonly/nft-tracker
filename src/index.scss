@@ -1,7 +1,16 @@
-body {
+body, html {
   margin: 0;
+  height: 100vh;
+}
+
+body > div {
+  height: 100%;
 }
 
 div {
   display: block;
+}
+
+.walletconnect-qrcode__base {
+  background-color: transparent !important;
 }

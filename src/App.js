@@ -1,22 +1,21 @@
 import "./App.scss";
 import React from "react";
 
-import {
-  useMoralis
-} from "react-moralis";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import LikedNfts from "pages/LikedNfts/LikedNfts";
 import HomePage from "./pages/HomePage/HomePage";
 import HeaderComponent from "./components/Header/HeaderComponent";
+import Login from "./pages/Login/Login";
 
 function App() {
 
 
   return (
     <div className="App">
-      <HeaderComponent />
+      {/*<HeaderComponent />*/}
       <Switch>
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/login" component={Login} />
         <Route path="/liked">
           <LikedNfts />
         </Route>
