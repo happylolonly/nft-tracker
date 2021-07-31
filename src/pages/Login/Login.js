@@ -1,49 +1,78 @@
-import React from 'react'
-import styles from './Login.module.scss'
-import {useMoralis} from "react-moralis";
-import {useHistory} from "react-router-dom";
+import React from "react";
+import styles from "./Login.module.scss";
+import { useMoralis } from "react-moralis";
+import { Redirect, useHistory } from "react-router-dom";
 
 const Login = () => {
-  const { authenticate, isAuthenticated } = useMoralis();
+  const { authenticate, isAuthenticated, user } = useMoralis();
   const history = useHistory();
-  const loginHandler = () => {
-    if(!isAuthenticated) {
-      authenticate({ provider: "walletconnect" })
-        .then(res => {
-          if(res) {
-            history.push('/home')
-          }
-          return
-        })
-        .catch(err => {
-          console.log(err);
-        })
+
+  if (isAuthenticated) {
+    // alert("s");
+    return <Redirect to="/" />;
+  }
+  async function loginHandler(provider) {
+    try {
+      authenticate({
+        provider,
+        onSuccess: () => {
+          alert("success");
+          history.push("/");
+        },
+        onError(error) {
+          console.log(error);
+          alert(error.message, JSON.stringify(error)); // TODO: show on UI
+        },
+      });
+    } catch (error) {
+      alert(error.message, JSON.stringify(error));
     }
   }
   return (
     <div className={styles.loginWrapper}>
-      <div className={styles.mainTitle}>
-        Tracker
-      </div>
+      <div className={styles.mainTitle}>Tracker {JSON.stringify(user)}</div>
       <div className={styles.mainContent}>
         <div className={styles.textWrapper}>
           <span className={styles.hugeTitle}>Gallery</span>
           <span className={styles.hugeTitle}>of NFT works</span>
           <span className={styles.smallTitle}>Find tokens to your liking</span>
         </div>
-        <div className={styles.buttonWrapper} onClick={loginHandler}>
+        <div className={styles.buttonWrapper} onClick={() => loginHandler()}>
           <div>
             <div className={styles.buttonLogo} />
-            <span className={styles.buttonLabelBold}>Wallet connect</span>
-            <span className={styles.buttonLabel}>Choose your preferred wallet</span>
+            <span className={styles.buttonLabelBold}>if desktop only</span>
+            <span className={styles.buttonLabel}>
+              {/* Choose your preferred wallet */}
+            </span>
           </div>
         </div>
         <div className={styles.footer}>
-          <span>We do not own your private keys and cannot access your funds without your confirmation.</span>
+          <span>
+            We do not own your private keys and cannot access your funds without
+            your confirmation.
+          </span>
+        </div>
+        <div
+          className={styles.buttonWrapper}
+          onClick={() => loginHandler("walletconnect")}
+        >
+          <div>
+            <div className={styles.buttonLogo} />
+            <span className={styles.buttonLabelBold}>Wallet connect</span>
+            <span className={styles.buttonLabel}>
+              Choose your preferred wallet
+            </span>
+          </div>
+        </div>
+        <div className={styles.footer}>
+          <span>
+            We do not own your private keys and cannot access your funds without
+            your confirmation.
+          </span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Login;

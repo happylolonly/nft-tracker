@@ -5,6 +5,9 @@
   justify-content: flex-end;
   font-size: 18px;
   color: #ffffff;
+  position: fixed;
+  top: 0;
+  z-index: 10;
   cursor: pointer;
 }
 
