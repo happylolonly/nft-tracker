@@ -1,19 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import Swipeable from "react-swipy";
 import {useMoralis, useMoralisQuery, useNewMoralisObject} from "react-moralis";
 import * as raribleApi from "../../api/rarible";
 import classes from './HomePage.module.scss'
 import {isEmpty} from "lodash";
+import TinderCard from 'react-tinder-card';
+import HeaderComponent from "../../components/Header/HeaderComponent";
+import SwipeComponent from "../../components/SwipeComponent/SwipeComponent";
 
 const HomePage = () => {
-  const [cards, setCards] = useState([
-    <img src="https://source.unsplash.com/random/1080?sig=1" />,
-    <img src="https://source.unsplash.com/random/1080?sig=2" />,
-    <img src="https://source.unsplash.com/random/1080?sig=3" />,
-    <img src="https://source.unsplash.com/random/1080?sig=4" />,
-    <img src="https://source.unsplash.com/random/1080?sig=5" />,
-    <img src="https://source.unsplash.com/random/1080?sig=6" />,
-  ]);
   const [items, setItems] = useState([]);
   const [activeItem, setActiveItem] = useState(0);
   const { user, logout } = useMoralis();
@@ -105,56 +100,11 @@ const HomePage = () => {
     next();
   }
 
-  // if (isEmpty(activeItem) || activeItem.attributes.length === 0) {
-  //   return null;
-  // }
-
-  // const {
-  //   name,
-  //   description,
-  //   image: {
-  //     url: { ORIGINAL, BIG },
-  //   },
-  // } = activeItem;
-
-  const remove = () => {
-    console.log('remove');
-  }
-
-  const handleSwipe = () => {
-    console.log(activeItem);
-    if(activeItem === cards.length - 1) {
-      console.log(123);
-      setActiveItem(0)
-      return
-    }
-    setActiveItem(activeItem + 1)
-  }
-
   return (
     <div>
+      <HeaderComponent />
       <div style={wrapperStyles}>
-        {cards.length > 0 ? (
-          <div style={wrapperStyles}>
-            <Swipeable
-              buttons={({left, right}) => (
-                <div>
-                  <span className={classes.swipeLinkReject} onClick={handleSwipe}>Reject</span>
-                  <span className={classes.swipeLinkAccept} onClick={handleSwipe}>Accept</span>
-                </div>
-              )}
-              onAfterSwipe={remove}
-              onSwipe={handleSwipe}
-            >
-              <div className={classes.imageWrapper}>
-                {cards[activeItem]}
-              </div>
-            </Swipeable>
-            {/*{cards.length > 1 && <div style={{zIndex: "-1"}}>{cards[1]}</div>}*/}
-          </div>
-        ) : (
-          <div style={{zIndex: "-2"}}>No more cards</div>
-        )}
+        <SwipeComponent />
       </div>
     </div>
   )
