@@ -15,7 +15,7 @@ const Login = () => {
       authenticate({
         provider,
         onSuccess: () => {
-          history.push("/");
+          history.push("/home");
         },
         onError(error) {
           console.error(error);

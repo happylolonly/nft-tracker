@@ -101,7 +101,7 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <div className={classes.homepageWrapper}>
       <HeaderComponent />
       <div style={wrapperStyles}>
         <SwipeComponent />
