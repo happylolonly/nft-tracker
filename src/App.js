@@ -1,7 +1,7 @@
 import "./App.scss";
 import React, { useEffect } from "react";
 
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import LikedNfts from "pages/LikedNfts/LikedNfts";
 import HomePage from "./pages/HomePage/HomePage";
 import HeaderComponent from "./components/Header/HeaderComponent";
@@ -25,11 +25,15 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/home" component={HomePage} />
+        <Route path="/home" component={HomePage} />
         <Route path="/login" component={Login} />
 
         <Route path="/liked">
           <LikedNfts />
+        </Route>
+
+        <Route exact path="/">
+          <Redirect to="/home" />
         </Route>
       </Switch>
     </div>
