@@ -24,7 +24,6 @@ function App() {
 
   return (
     <div className="App">
-      <HeaderComponent />
       <Switch>
         <Route exact path="/home" component={HomePage} />
         <Route path="/login" component={Login} />
