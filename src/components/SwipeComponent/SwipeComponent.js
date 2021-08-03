@@ -9,7 +9,6 @@ const alreadyRemoved = []
 const SwipeComponent = ({onLike, onDislike, item}) => {
   const [lastDirection, setLastDirection] = useState()
   const childRefs = useRef();
-  console.log(childRefs);
   const swiped = (direction, nameToDelete) => {
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)

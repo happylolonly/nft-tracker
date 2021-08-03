@@ -90,7 +90,6 @@ const HomePage = () => {
     next();
   }
 
-  console.log(isLoading);
   return (
     <div className={classes.homepageWrapper}>
       {/*<HeaderComponent />*/}
