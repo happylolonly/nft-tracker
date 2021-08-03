@@ -1,16 +1,16 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import Swipeable from "react-swipy";
 import {useMoralis, useMoralisQuery, useNewMoralisObject} from "react-moralis";
 import * as raribleApi from "../../api/rarible";
 import classes from './HomePage.module.scss'
-import {isEmpty} from "lodash";
-import TinderCard from 'react-tinder-card';
 import HeaderComponent from "../../components/Header/HeaderComponent";
 import SwipeComponent from "../../components/SwipeComponent/SwipeComponent";
+import Spinner from "../../components/Spinner/Spinner";
 
 const HomePage = () => {
+  const [isLoading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [activeItem, setActiveItem] = useState(0);
+
   const { user, logout } = useMoralis();
   const Likes = useNewMoralisObject("Likes");
   const LikesQuery = useMoralisQuery(
@@ -21,56 +21,44 @@ const HomePage = () => {
     [user]
     // { autoFetch: false },
   );
-  const wrapperStyles = {position: "relative", width: "100%", height: "calc(100vh - 80px)"};
-  const actionsStyles = {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: 12,
-    position: 'absolute'
-  };
-
 
   useEffect(() => {
-    // if (activeItem.attributes?.length === 0) {
-    //   next();
-    //   return;
-    // }
+    if (activeItem.attributes?.length === 0) {
+      next();
+      return;
+    }
     const replyExists = LikesQuery.data.find((item) => {
       return item.attributes.nftId === activeItem.id;
     });
 
     if (replyExists) {
-      next();
       return;
     }
-  }, [activeItem, LikesQuery.data, next]);
+  }, [activeItem, LikesQuery.data]);
 
 
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const data = await raribleApi.getAllItems();
       setItems(data.data.items);
       const random = getRandomItem();
-
-      // getItemMetaById(data.data.items[random].id);
-    })();
-    (async () => {
-      const data = await fetch('https://picsum.photos/200/300?random=2');
-      // setCards(data.data.items);
+      await getItemMetaById(data.data.items[random].id);
     })();
   }, []);
 
-  // async function getItemMetaById(id) {
-  //   try {
-  //     const meta = await raribleApi.getItemMetaById(id);
-  //     setActiveItem({
-  //       id,
-  //       ...meta.data,
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  async function getItemMetaById(id) {
+    try {
+      const meta = await raribleApi.getItemMetaById(id);
+      setActiveItem({
+        id,
+        ...meta.data,
+      });
+      setLoading(false)
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function getRandomItem() {
     const index = Math.floor(Math.random() * items.length);
@@ -84,15 +72,17 @@ const HomePage = () => {
         user,
         nftId: activeItem.id,
       });
+      next()
     } catch (error) {
       console.error(error);
     }
   }
 
   function next() {
+    setLoading(true)
     const index = getRandomItem();
     // check !==
-    // getItemMetaById(items[index].id);
+    getItemMetaById(items[index].id);
   }
 
   async function handleClick(isLike) {
@@ -100,12 +90,15 @@ const HomePage = () => {
     next();
   }
 
+  console.log(isLoading);
   return (
     <div className={classes.homepageWrapper}>
-      <HeaderComponent />
-      <div style={wrapperStyles}>
-        <SwipeComponent />
-      </div>
+      {/*<HeaderComponent />*/}
+      {isLoading ? <Spinner /> : (
+        <div className={classes.swipeWrapper}>
+          <SwipeComponent item={activeItem} onLike={saveReaction} onDislike={next} />
+        </div>
+      )}
     </div>
   )
 }

@@ -10,6 +10,7 @@ body > div {
 
 div {
   display: block;
+  box-sizing: border-box;
 }
 
 .walletconnect-qrcode__base {
