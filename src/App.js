@@ -12,15 +12,15 @@ function App() {
   const { isAuthenticated, isAuthUndefined } = useMoralis();
   const history = useHistory();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      history.push("/login");
-    }
-  }, [history, isAuthenticated]);
-
-  if (isAuthUndefined) {
-    return null; // TODO: what to render?
-  }
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     history.push("/login");
+  //   }
+  // }, [history, isAuthenticated]);
+  //
+  // if (isAuthUndefined) {
+  //   return null; // TODO: what to render?
+  // }
 
   return (
     <div className="App">

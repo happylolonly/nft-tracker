@@ -58,10 +58,17 @@
   height: 40px;
   padding: 5px;
   border-radius: 5px;
-  background-color: rgba(10, 10, 10, 0.6);
+  background-color: #3A3A3A;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease-in-out;
+  &.activeDislike {
+    background-color: red;
+  }
+  &.activeLike {
+    background-color: lightblue;
+  }
 }
 
 .swipe {

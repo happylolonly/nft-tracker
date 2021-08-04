@@ -5,6 +5,7 @@ import classes from './HomePage.module.scss'
 import HeaderComponent from "../../components/Header/HeaderComponent";
 import SwipeComponent from "../../components/SwipeComponent/SwipeComponent";
 import Spinner from "../../components/Spinner/Spinner";
+import FooterNav from "../../components/FooterNav/FooterNav";
 
 const HomePage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -21,6 +22,17 @@ const HomePage = () => {
     [user]
     // { autoFetch: false },
   );
+
+  const touch = () => {
+    console.log(123);
+  }
+
+  useEffect(() => {
+    window.addEventListener('touchstart', touch, false)
+    return () => {
+
+    }
+  }, [])
 
   useEffect(() => {
     if (activeItem.attributes?.length === 0) {
@@ -92,12 +104,13 @@ const HomePage = () => {
 
   return (
     <div className={classes.homepageWrapper}>
-      {/*<HeaderComponent />*/}
+      <HeaderComponent />
       {isLoading ? <Spinner /> : (
         <div className={classes.swipeWrapper}>
           <SwipeComponent item={activeItem} onLike={saveReaction} onDislike={next} />
         </div>
       )}
+      <FooterNav />
     </div>
   )
 }

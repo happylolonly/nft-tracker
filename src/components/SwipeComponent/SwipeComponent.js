@@ -8,25 +8,35 @@ const alreadyRemoved = []
 
 const SwipeComponent = ({onLike, onDislike, item}) => {
   const [lastDirection, setLastDirection] = useState()
+  const [dislike, setDislike] = useState(false);
+  const [like, setLike] = useState(false);
   const childRefs = useRef();
   const swiped = (direction, nameToDelete) => {
     setLastDirection(direction)
     alreadyRemoved.push(nameToDelete)
     if(direction === 'right') {
+      console.log(direction);
+      setLike(true)
       onLike()
       return
     }
     if(direction === 'left') {
+      console.log(direction);
+      setDislike(true)
       onDislike()
       return
     }
   }
-  console.log(item);
   const outOfFrame = (name) => {
-    console.log(name);
+    console.log(123);
   }
 
   const swipe = (dir) => {
+    if(dir === 'left') {
+      setDislike(true)
+    } else {
+      setLike(true)
+    }
     childRefs.current.swipe(dir).then(res => res)
   }
 
@@ -41,10 +51,10 @@ const SwipeComponent = ({onLike, onDislike, item}) => {
         </TinderCard>
       </div>
       <div className={classes.buttons}>
-        <span onClick={() => swipe('left')}>
+        <span className={dislike && classes.activeDislike} onClick={() => swipe('left')}>
           <img src={closeLogo} alt=""/>
         </span>
-        <span onClick={() => swipe('right')}>
+        <span className={like && classes.activeLike} onClick={() => swipe('right')}>
           <img src={heartLogo} alt=""/>
         </span>
       </div>
