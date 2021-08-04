@@ -2,14 +2,15 @@
   display: flex;
   width: 40px;
   height: 40px;
-  background-color: #000;
+  //background-color: #3A3A3A;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .burgerDot {
-  width: 2.5px;
-  height: 2.5px;
+  width: 3px;
+  height: 3px;
   background-color: #ffffff;
   border-radius: 50%;
   &:not(:last-child) {

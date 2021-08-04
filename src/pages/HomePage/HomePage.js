@@ -23,17 +23,6 @@ const HomePage = () => {
     // { autoFetch: false },
   );
 
-  const touch = () => {
-    console.log(123);
-  }
-
-  useEffect(() => {
-    window.addEventListener('touchstart', touch, false)
-    return () => {
-
-    }
-  }, [])
-
   useEffect(() => {
     if (activeItem.attributes?.length === 0) {
       next();
@@ -105,11 +94,9 @@ const HomePage = () => {
   return (
     <div className={classes.homepageWrapper}>
       <HeaderComponent />
-      {isLoading ? <Spinner /> : (
-        <div className={classes.swipeWrapper}>
-          <SwipeComponent item={activeItem} onLike={saveReaction} onDislike={next} />
-        </div>
-      )}
+      <div className={classes.swipeWrapper}>
+        <SwipeComponent isLoading={isLoading} item={activeItem} onLike={saveReaction} onDislike={next} />
+      </div>
       <FooterNav />
     </div>
   )
