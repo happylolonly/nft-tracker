@@ -20,9 +20,32 @@
   height: auto;
 }
 
-.cardName {
-  display: block;
+.cardNameWrapper {
   padding: 0 10px;
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardName {
+  margin: 0;
+  padding-right: 1em;
+}
+
+.description {
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.collapse {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #3A3A3A;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttons {
