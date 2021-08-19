@@ -1,69 +1,92 @@
-import React, {useEffect, useMemo, useState} from 'react'
-import {useMoralis, useMoralisQuery, useNewMoralisObject} from "react-moralis";
-import * as raribleApi from "../../api/rarible";
-import classes from './HomePage.module.scss'
-import HeaderComponent from "../../components/Header/HeaderComponent";
-import SwipeComponent from "../../components/SwipeComponent/SwipeComponent";
-import Spinner from "../../components/Spinner/Spinner";
-import FooterNav from "../../components/FooterNav/FooterNav";
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis';
+import * as raribleApi from '../../api/rarible';
+import classes from './HomePage.module.scss';
+import HeaderComponent from '../../components/Header/HeaderComponent';
+import SwipeComponent from '../../components/SwipeComponent/SwipeComponent';
+import Spinner from '../../components/Spinner/Spinner';
+import FooterNav from '../../components/FooterNav/FooterNav';
 
 const HomePage = () => {
   const [isLoading, setLoading] = useState(false);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState({
+    data: [],
+    continuation: null,
+  });
   const [activeItem, setActiveItem] = useState(0);
+  // const [loadingItem, setLoadingItem] = useState(null);
+  const [index, setIndex] = useState(null);
 
-  const { user, logout } = useMoralis();
-  const Likes = useNewMoralisObject("Likes");
+  const { user } = useMoralis();
+
+  console.log(index, items);
+  const Likes = useNewMoralisObject('Likes');
   const LikesQuery = useMoralisQuery(
-    "Likes",
-    (query) => query.equalTo("user", user),
-    // .equalTo('nftId', activeItem.id),
-    // .descending("score")
-    [user]
+    'Likes',
+    (query) => {
+      console.log(user, index, items);
+      if (!(index === null || !items.data.length)) {
+        return query.equalTo('user', user).equalTo('nftId', items.data[index].id);
+      }
+    },
+    [user, index, items]
     // { autoFetch: false },
   );
 
-  useEffect(() => {
-    if (activeItem.attributes?.length === 0) {
-      next();
-      return;
+  // function preloadItem() {}
+
+  const getAllItems = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await raribleApi.getAllItems(items.continuation);
+
+      setItems({
+        data: data.items,
+        continuation: data.continuation,
+      });
+      setIndex(0);
+    } catch (error) {
+      console.error(error);
     }
-    const replyExists = LikesQuery.data.find((item) => {
-      return item.attributes.nftId === activeItem.id;
-    });
 
-    if (replyExists) {
-      return;
-    }
-  }, [activeItem, LikesQuery.data]);
-
+    setLoading(false);
+  }, [items.continuation]);
 
   useEffect(() => {
-    (async () => {
-      setLoading(true)
-      const data = await raribleApi.getAllItems();
-      setItems(data.data.items);
-      const random = getRandomItem();
-      await getItemMetaById(data.data.items[random].id);
-    })();
+    getAllItems();
   }, []);
+
+  // check if user have had reaction to this item
+  useEffect(() => {
+    if (index === null || !items.data.length) {
+      return;
+    }
+
+    if (LikesQuery.data.length > 0) {
+      next();
+    }
+
+    const { id } = items.data[index];
+    // setActiveItem(items.data[index]);
+    getItemMetaById(id);
+  }, [LikesQuery.data, items, index]);
 
   async function getItemMetaById(id) {
     try {
       const meta = await raribleApi.getItemMetaById(id);
+
+      if (!meta.data.image) {
+        next();
+        return;
+      }
+
       setActiveItem({
-        id,
-        ...meta.data,
+        ...items.data[index],
+        meta: meta.data,
       });
-      setLoading(false)
     } catch (error) {
       console.error(error);
     }
-  }
-
-  function getRandomItem() {
-    const index = Math.floor(Math.random() * items.length);
-    return index;
   }
 
   async function saveReaction(isLike) {
@@ -73,17 +96,9 @@ const HomePage = () => {
         user,
         nftId: activeItem.id,
       });
-      next()
     } catch (error) {
       console.error(error);
     }
-  }
-
-  function next() {
-    setLoading(true)
-    const index = getRandomItem();
-    // check !==
-    getItemMetaById(items[index].id);
   }
 
   async function handleClick(isLike) {
@@ -91,15 +106,30 @@ const HomePage = () => {
     next();
   }
 
+  function next() {
+    if (index === items.data.length - 1) {
+      getAllItems();
+      return;
+    }
+    setIndex(index + 1);
+  }
+
+  console.log(activeItem);
+
   return (
     <div className={classes.homepageWrapper}>
       <HeaderComponent />
       <div className={classes.swipeWrapper}>
-        <SwipeComponent isLoading={isLoading} item={activeItem} onLike={saveReaction} onDislike={next} />
+        <SwipeComponent
+          isLoading={isLoading}
+          item={activeItem}
+          onLike={() => handleClick(true)}
+          onDislike={() => handleClick(false)}
+        />
       </div>
       <FooterNav />
     </div>
-  )
-}
+  );
+};
 
 export default HomePage;
