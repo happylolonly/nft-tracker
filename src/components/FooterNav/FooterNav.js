@@ -8,14 +8,14 @@ const FooterNav = () => {
     console.log(123);
   }
   return (
-    <div className={classes.footer}>
+    <footer className={classes.footer}>
       <div onClick={goToPage}>
         <img src={tabSwiper} alt=""/>
       </div>
       <div>
         <img src={profileImage} alt=""/>
       </div>
-    </div>
+    </footer>
   )
 }
 
