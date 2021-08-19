@@ -6,17 +6,19 @@ import FooterNav from "../FooterNav/FooterNav";
 
 const Detail = ({item, isLoading}) => {
   const [descriptionVisible, setDescriptionVisible] = useState(false);
+  const buyLink = `https://rarible.com/token/${item?.contract}:${item?.tokenId}`;
 
   const toggleDescription = () => {
     setDescriptionVisible(!descriptionVisible);
   }
+  console.log(item);
 
   return isLoading ? <Spinner /> : (
     <main className={classes.detailWrapper}>
-      <div>
+      <div className={classes.image}>
         <img src={item?.image?.url?.BIG || item?.image?.url?.ORIGINAL} alt=""/>
       </div>
-      <div>
+      <div className={classes.allInfo}>
         <div className={classes.titleWrapper}>
           <div className={classes.titleInfo}>
             <h1 className={classes.title}>{item?.name}</h1>
@@ -46,6 +48,12 @@ const Detail = ({item, isLoading}) => {
           </div>
         </dl>
         <FooterNav />
+        <div className={classes.actions}>
+          <button className={classes.dislike} />
+          <a href={buyLink} target="_blank" className={classes.buy}>Buy</a>
+          <button className={classes.bid}>Bid</button>
+          <button className={classes.like} />
+        </div>
       </div>
     </main>
   )

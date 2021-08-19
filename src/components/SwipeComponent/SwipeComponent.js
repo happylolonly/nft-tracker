@@ -83,28 +83,28 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
               <div className={classes.cardNameWrapper}>
                 <h3 className={classes.cardName}>
                   <Link to={`/detail/${item?.id}`} className={classes.detailLink}>
-                    {item?.name}
+                    {item?.meta?.name}
                   </Link>
                 </h3>
 
-                <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>
-                  Buy
-                </a>
-
                 <ArrowButton onClick={toggleDescription} />
               </div>
-              {descriptionVisible && <p className={classes.description}>{item?.description}</p>}
+              {descriptionVisible && <p className={classes.description}>{item?.meta?.description}</p>}
+
+              <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>
+                Buy
+              </a>
             </div>
           </TinderCard>
         </div>
       )}
       <div className={classes.buttons}>
-        <button className={dislike && classes.activeDislike} onClick={() => swipe('left')}>
+        <span className={dislike && classes.activeDislike} onClick={() => swipe('left')}>
           <img src={closeLogo} alt="" />
-        </button>
-        <button className={like && classes.activeLike} onClick={() => swipe('right')}>
+        </span>
+        <span className={like && classes.activeLike} onClick={() => swipe('right')}>
           <img src={heartLogo} alt="" />
-        </button>
+        </span>
       </div>
     </div>
   );

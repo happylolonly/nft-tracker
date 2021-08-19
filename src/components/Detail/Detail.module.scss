@@ -1,6 +1,9 @@
 .detailWrapper {
   position: relative;
-  padding: 60px 10px;
+  padding: 60px 10px 100px;
+  max-width: 660px;
+  margin: 0 auto;
+  box-sizing: border-box;
 
   img {
     max-width: 100%;
@@ -11,11 +14,17 @@
   }
 }
 
+.image {
+  text-align: center;
+}
+
 .titleWrapper {
   display: flex;
   justify-content: space-between;
   margin: 1em 0;
   padding-bottom: 1rem;
+  padding-left: 15px;
+  padding-right: 15px;
   border-bottom: 1px solid #2A2A2A;
 }
 
@@ -36,6 +45,8 @@
 
 .description {
   font-size: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .saleInfo {
@@ -44,12 +55,14 @@
   text-align: center;
   padding: 10px;
   border-radius: 20px;
-  margin: 20px 0;
+  margin: 20px 15px;
 }
 
 .productInfo {
   display: flex;
   flex-wrap: wrap;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .infoItem {
@@ -65,4 +78,86 @@
 .infoValue {
   margin: 0;
   font-size: 12px;
+}
+
+.actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dislike,
+.like {
+  width: 60px;
+  height: 60px;
+  background-color: #3A3A3A;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  border: none;
+}
+
+.dislike {
+  background-image: url("../../assets/cross.svg");
+}
+
+.like {
+  background-image: url("../../assets/tick.svg");
+}
+
+.buy,
+.bid {
+  margin-left: 10px;
+  flex-grow: 1;
+  padding: 14px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+}
+
+.buy {
+  background: #0040E3;
+  text-align: center;
+  text-decoration: none;
+}
+
+.bid {
+  margin-right: 10px;
+  background-color: #3A3A3A;
+}
+
+@media (min-width: 1000px) {
+  .detailWrapper {
+    display: flex;
+    max-width: 100%;
+    min-height: 100vh;
+    padding-bottom: 0;
+  }
+
+  .image {
+    width: 70%;
+  }
+
+  .allInfo {
+    width: 30%;
+  }
+
+  .actions {
+    position: static;
+    margin-top: auto;
+  }
+
+  .allInfo {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #2A2A2A;
+    box-sizing: border-box;
+  }
 }
