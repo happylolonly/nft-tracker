@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis';
 import * as raribleApi from '../../api/rarible';
 import classes from './HomePage.module.scss';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import SwipeComponent from '../../components/SwipeComponent/SwipeComponent';
-import Spinner from '../../components/Spinner/Spinner';
 import FooterNav from '../../components/FooterNav/FooterNav';
 
 const HomePage = () => {
@@ -19,12 +18,10 @@ const HomePage = () => {
 
   const { user } = useMoralis();
 
-  console.log(index, items);
   const Likes = useNewMoralisObject('Likes');
   const LikesQuery = useMoralisQuery(
     'Likes',
     (query) => {
-      console.log(user, index, items);
       if (!(index === null || !items.data.length)) {
         return query.equalTo('user', user).equalTo('nftId', items.data[index].id);
       }
