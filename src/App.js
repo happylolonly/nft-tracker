@@ -13,10 +13,10 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !isAuthUndefined) {
       history.push("/login");
     }
-  }, [history, isAuthenticated]);
+  }, [history, isAuthenticated, isAuthUndefined]);
 
   if (isAuthUndefined) {
     return null; // TODO: what to render?
