@@ -1,0 +1,68 @@
+.detailWrapper {
+  position: relative;
+  padding: 60px 10px;
+
+  img {
+    max-width: 100%;
+  }
+
+  footer {
+    position: relative;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2A2A2A;
+}
+
+.titleInfo {
+  padding-right: 1em;
+  font-size: 14px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.secondaryInfo {
+  margin-top: .5em;
+}
+
+.description {
+  font-size: 12px;
+}
+
+.saleInfo {
+  font-size: 12px;
+  background: #171717;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.productInfo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.infoItem {
+  width: 50%;
+  margin: 12px 0;
+}
+
+.infoTitle {
+  color: #717171;
+  font-size: 10px;
+}
+
+.infoValue {
+  margin: 0;
+  font-size: 12px;
+}

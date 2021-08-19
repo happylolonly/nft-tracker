@@ -1,10 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import TinderCard from 'react-tinder-card'
+import { Link } from "react-router-dom";
 import classes from './SwipeComponent.module.scss';
 import heartLogo from '../../assets/Heart.png';
 import closeLogo from '../../assets/Close.png';
-import arrowIcon from '../../assets/arrow.svg';
 import Spinner from "../Spinner/Spinner";
+import ArrowButton from "../ArrowButton/ArrowButton";
 
 const alreadyRemoved = []
 
@@ -60,17 +61,16 @@ const SwipeComponent = ({onLike, onDislike, item, isLoading}) => {
             <div className={classes.card}>
               <img className={classes.cardImage} src={item?.image?.url?.BIG || item?.image?.url?.ORIGINAL} alt=""/>
               <div className={classes.cardNameWrapper}>
-                <h3 className={classes.cardName}>{item?.name}</h3>
-                <button className={classes.collapse} onClick={toggleDescription}>
-                  <img src={arrowIcon} alt=""/>
-                </button>
+                <h3 className={classes.cardName}>
+                  <Link to={`/detail/${item?.id}`} className={classes.detailLink}>{item?.name}</Link>
+                </h3>
+                <ArrowButton onClick={toggleDescription}/>
               </div>
-              <p
-                  className={classes.description}
-                  style={{display: descriptionVisible ? 'block' : 'none'}}
-              >
-                {item?.description}
-              </p>
+              {descriptionVisible && (
+                <p className={classes.description}>
+                  {item?.description}
+                </p>
+              )}
             </div>
           </TinderCard>
         </div>

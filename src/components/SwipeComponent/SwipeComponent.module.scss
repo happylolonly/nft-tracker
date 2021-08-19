@@ -32,20 +32,14 @@
   padding-right: 1em;
 }
 
+.detailLink {
+  color: #fff;
+  text-decoration: none;
+}
+
 .description {
   padding: 0 10px;
   font-size: 12px;
-}
-
-.collapse {
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: #3A3A3A;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .buttons {

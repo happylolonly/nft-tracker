@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import LikedNfts from "pages/LikedNfts/LikedNfts";
 import HomePage from "./pages/HomePage/HomePage";
+import DetailPage from "./pages/DetailPage/DetailPage";
 import HeaderComponent from "./components/Header/HeaderComponent";
 import Login from "./pages/Login/Login";
 import { useMoralis } from "react-moralis";
@@ -26,6 +27,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/home" component={HomePage} />
+        <Route path="/detail/:id" component={DetailPage} />
         <Route path="/login" component={Login} />
 
         <Route path="/liked">

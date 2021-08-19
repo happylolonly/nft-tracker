@@ -1,0 +1,11 @@
+.arrowButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: url('../../assets/arrow.svg') no-repeat center center #3A3A3A;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
