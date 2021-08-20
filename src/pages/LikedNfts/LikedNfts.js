@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import classes from './LikedNfts.module.scss';
 
 import * as raribleApi from 'api/rarible';
+import HeaderComponent from "../../components/Header/HeaderComponent";
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -47,8 +50,9 @@ function LikedNfts() {
   }, [data]);
 
   return (
-    <div>
-      <h3>Liked Nft</h3>
+    <div className={classes.likedWrapper}>
+      <HeaderComponent />
+      <h2>Liked Nft</h2>
       {isLoading ? (
         'Loading...'
       ) : error ? (
@@ -58,15 +62,20 @@ function LikedNfts() {
       ) : (
         <div>
           <h5>You have {data.length} liked</h5>
-          {items.map(({ meta }) => {
-            const { name, image } = meta;
-            return (
-              <div>
-                <h3>{name}</h3>
-                <img src={image?.url?.ORIGINAL} alt="" width="200" height="200" />
-              </div>
-            );
-          })}
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{100: 1, 400: 2, 700: 3, 1000: 4}}
+          >
+            <Masonry>
+              {items.map(({ meta }) => {
+                const { name, image } = meta;
+                return (
+                  <div className={classes.card}>
+                    <img src={image?.url?.ORIGINAL} alt={name} />
+                  </div>
+                );
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
         </div>
       )}
     </div>

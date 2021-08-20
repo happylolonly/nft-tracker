@@ -1,0 +1,23 @@
+.likedWrapper {
+  position: relative;
+  background: #000;
+  min-height: 100vh;
+  padding: 80px 10px 0;
+  color: #fff;
+
+  img {
+    max-width: 100%;
+  }
+
+  h2, h5 {
+    text-align: center;
+  }
+}
+
+.card {
+  padding: 10px;
+
+  img {
+    border-radius: 8px;
+  }
+}
