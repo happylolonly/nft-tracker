@@ -76,8 +76,13 @@
 }
 
 .infoValue {
-  margin: 0;
+  margin: 10px 0 0;
   font-size: 12px;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .actions {
@@ -114,6 +119,7 @@
 .buy,
 .bid {
   margin-left: 10px;
+  margin-right: 10px;
   flex-grow: 1;
   padding: 14px;
   color: #fff;

@@ -6,12 +6,11 @@ import FooterNav from "../FooterNav/FooterNav";
 
 const Detail = ({item, isLoading}) => {
   const [descriptionVisible, setDescriptionVisible] = useState(false);
-  const buyLink = `https://rarible.com/token/${item?.contract}:${item?.tokenId}`;
+  const buyLink = `https://rarible.com/token/${item?.item?.contract}:${item?.item?.tokenId}`;
 
   const toggleDescription = () => {
     setDescriptionVisible(!descriptionVisible);
   }
-  console.log(item);
 
   return isLoading ? <Spinner /> : (
     <main className={classes.detailWrapper}>
@@ -36,22 +35,34 @@ const Detail = ({item, isLoading}) => {
         <dl className={classes.productInfo}>
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Creator</dt>
-            <dd className={classes.infoValue}>PlacePeak</dd>
+            <dd className={classes.infoValue}>
+              <a href={buyLink} target="_blank">
+                {item && `${item.item.creators[0].account.slice(0, 5)}...`}
+              </a>
+            </dd>
           </div>
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Collection</dt>
-            <dd className={classes.infoValue}>Rarible</dd>
+            <dd className={classes.infoValue}>
+              <a href={buyLink} target="_blank">
+                {item && `${item.item.contract.slice(0, 5)}...`}
+              </a>
+            </dd>
           </div>
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Owner</dt>
-            <dd className={classes.infoValue}>PlacePeak</dd>
+            <dd className={classes.infoValue}>
+              <a href={buyLink} target="_blank">
+                {item && `${item.item.owners[0].slice(0, 5)}...`}
+              </a>
+            </dd>
           </div>
         </dl>
         <FooterNav />
         <div className={classes.actions}>
           <button className={classes.dislike} />
           <a href={buyLink} target="_blank" className={classes.buy}>Buy</a>
-          <button className={classes.bid}>Bid</button>
+          {/*<button className={classes.bid}>Bid</button>*/}
           <button className={classes.like} />
         </div>
       </div>

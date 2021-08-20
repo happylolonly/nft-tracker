@@ -15,8 +15,10 @@ const DetailPage = () => {
     try {
       setLoading(true);
       const meta = await raribleApi.getItemMetaById(id);
+      const item = await raribleApi.getItemById(id);
       setItem({
         id,
+        item: item.data,
         ...meta.data,
       });
       setLoading(false);
