@@ -6,6 +6,7 @@ import heartLogo from '../../assets/Heart.png';
 import closeLogo from '../../assets/Close.png';
 import Spinner from '../Spinner/Spinner';
 import ArrowButton from '../ArrowButton/ArrowButton';
+import cn from 'classnames';
 
 const alreadyRemoved = [];
 
@@ -57,9 +58,8 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
     return null;
   }
 
-  const { image } = item.meta;
-
-  const buyLink = `https://rarible.com/token/${item.contract}:${item.tokenId}`;
+  const { meta } = item;
+  const { image } = meta;
 
   return (
     <div className={classes.cardContainerWr}>
@@ -70,28 +70,35 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
           <TinderCard
             ref={childRefs}
             className={classes.swipe}
-            key={item?.name}
-            onSwipe={(dir) => swiped(dir, item?.name)}
+            key={meta.name}
+            onSwipe={(dir) => swiped(dir, meta.name)}
             onCardLeftScreen={() => outOfFrame()}
           >
             <div className={classes.card}>
               <img
                 className={classes.cardImage}
-                src={image?.url?.BIG || image?.url?.ORIGINAL}
-                alt=""
+                src={image.url?.BIG || image.url?.ORIGINAL}
+                alt={meta.name}
               />
               <div className={classes.cardNameWrapper}>
                 <h3 className={classes.cardName}>
-                  <Link to={`/detail/${item?.id}`} className={classes.detailLink}>
-                    {item?.meta?.name}
+                  <Link to={`/detail/${item.id}`} className={classes.detailLink}>
+                    {meta.name}
                   </Link>
                 </h3>
 
                 <ArrowButton onClick={toggleDescription} />
               </div>
-              {descriptionVisible && <p className={classes.description}>{item?.meta?.description}</p>}
+              {descriptionVisible && meta.description && (
+                <p className={classes.description}>{meta.description}</p>
+              )}
 
-              <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>
+              <a
+                href={`https://rarible.com/token/${item.contract}:${item.tokenId}`}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.buy}
+              >
                 Buy
               </a>
             </div>
@@ -99,10 +106,10 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
         </div>
       )}
       <div className={classes.buttons}>
-        <span className={dislike && classes.activeDislike} onClick={() => swipe('left')}>
+        <span className={cn({ [classes.activeDislike]: dislike })} onClick={() => swipe('left')}>
           <img src={closeLogo} alt="" />
         </span>
-        <span className={like && classes.activeLike} onClick={() => swipe('right')}>
+        <span className={cn({ [classes.activeLike]: like })} onClick={() => swipe('right')}>
           <img src={heartLogo} alt="" />
         </span>
       </div>

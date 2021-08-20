@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "moralis": "^0.0.28",
     "react": "^17.0.2",
