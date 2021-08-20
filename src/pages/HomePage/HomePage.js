@@ -111,7 +111,7 @@ const HomePage = () => {
     setIndex(index + 1);
   }
 
-  console.log(activeItem);
+  console.info('activeItem: ', activeItem);
 
   return (
     <div className={classes.homepageWrapper}>
