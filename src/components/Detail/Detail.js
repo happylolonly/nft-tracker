@@ -21,7 +21,7 @@ const Detail = ({item, isLoading}) => {
         <div className={classes.titleWrapper}>
           <div className={classes.titleInfo}>
             <h1 className={classes.title}>{item?.name}</h1>
-            <p className={classes.secondaryInfo}>0.15 ETH</p>
+            {/*<p className={classes.secondaryInfo}>0.15 ETH</p>*/}
           </div>
           <ArrowButton onClick={toggleDescription}/>
         </div>

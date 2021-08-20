@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Login.module.scss";
 import { useMoralis } from "react-moralis";
 import { Redirect, useHistory } from "react-router-dom";
+import metamaskLogo from '../../assets/metamaskLogo.png'
 
 const Login = () => {
   const { authenticate, isAuthenticated } = useMoralis();
@@ -43,10 +44,10 @@ const Login = () => {
             onClick={() => loginHandler()}
           >
             <div>
-              <div className={styles.buttonLogo} />
+              <div className={styles.metamaskLogo}><img src={metamaskLogo} alt="MetaMask logo" /></div>
               <span className={styles.buttonLabelBold}>MetaMask</span>
               <span className={styles.buttonLabel}>
-                {/* Choose your preferred wallet */}
+                One of the most secure wallets with great flexibility
               </span>
             </div>
           </button>
