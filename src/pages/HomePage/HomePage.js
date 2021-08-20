@@ -77,6 +77,12 @@ const HomePage = () => {
         return;
       }
 
+      const { ORIGINAL, BIG } = meta.data.image.url;
+
+      if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
+        return next();
+      }
+
       setActiveItem({
         ...items.data[index],
         meta: meta.data,
