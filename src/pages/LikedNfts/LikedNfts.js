@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import {Link} from 'react-router-dom';
 import classes from './LikedNfts.module.scss';
 
 import * as raribleApi from 'api/rarible';
@@ -66,12 +67,12 @@ function LikedNfts() {
             columnsCountBreakPoints={{100: 1, 400: 2, 700: 3, 1000: 4}}
           >
             <Masonry>
-              {items.map(({ meta }) => {
-                const { name, image } = meta;
+              {items.map((item) => {
+                const { name, image } = item.meta;
                 return (
-                  <div className={classes.card}>
+                  <Link className={classes.card} to={`/detail/${item.id}`}>
                     <img src={image?.url?.ORIGINAL} alt={name} />
-                  </div>
+                  </Link>
                 );
               })}
             </Masonry>

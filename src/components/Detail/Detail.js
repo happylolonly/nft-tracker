@@ -4,7 +4,7 @@ import Spinner from "../Spinner/Spinner";
 import classes from "./Detail.module.scss";
 import FooterNav from "../FooterNav/FooterNav";
 
-const Detail = ({item, isLoading}) => {
+const Detail = ({item, isLoading, onDislike, onLike}) => {
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const buyLink = `https://rarible.com/token/${item?.item?.contract}:${item?.item?.tokenId}`;
 
@@ -60,10 +60,10 @@ const Detail = ({item, isLoading}) => {
         </dl>
         <FooterNav />
         <div className={classes.actions}>
-          <button className={classes.dislike} />
+          <button className={classes.dislike} onClick={onDislike} />
           <a href={buyLink} target="_blank" className={classes.buy}>Buy</a>
           {/*<button className={classes.bid}>Bid</button>*/}
-          <button className={classes.like} />
+          <button className={classes.like} onClick={onLike} />
         </div>
       </div>
     </main>
