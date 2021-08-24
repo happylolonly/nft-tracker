@@ -6,6 +6,7 @@ import classes from './LikedNfts.module.scss';
 
 import * as raribleApi from 'api/rarible';
 import HeaderComponent from "../../components/Header/HeaderComponent";
+import FooterNav from "../../components/FooterNav/FooterNav";
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -72,6 +73,7 @@ function LikedNfts() {
                 return (
                   <Link className={classes.card} to={`/detail/${item.id}`}>
                     <img src={image?.url?.ORIGINAL} alt={name} />
+                    <p className={classes.cardName}>{name}</p>
                   </Link>
                 );
               })}
@@ -79,6 +81,7 @@ function LikedNfts() {
           </ResponsiveMasonry>
         </div>
       )}
+      <FooterNav/>
     </div>
   );
 }

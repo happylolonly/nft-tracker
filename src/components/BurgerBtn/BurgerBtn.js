@@ -20,9 +20,6 @@ const BurgerBtn = ({ onLogout }) => {
             <span onClick={onLogout} className={classes.footerMenuLink}>
               Exit
             </span>
-            <Link to="/liked" className={classes.footerMenuLink}>
-              Liked
-            </Link>
             <span onClick={menuShowHandler} className={classes.footerMenuLink}>
               Close
             </span>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import { Link } from 'react-router-dom';
 import classes from './SwipeComponent.module.scss';
-import heartLogo from '../../assets/Heart.png';
+import heartLogo from '../../assets/tick.svg';
 import closeLogo from '../../assets/Close.png';
 import Spinner from '../Spinner/Spinner';
 import ArrowButton from '../ArrowButton/ArrowButton';
@@ -14,7 +14,6 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
   const [lastDirection, setLastDirection] = useState();
   const [dislike, setDislike] = useState(false);
   const [like, setLike] = useState(false);
-  const [descriptionVisible, setDescriptionVisible] = useState(false);
   const childRefs = useRef();
 
   useEffect(() => {
@@ -50,10 +49,6 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
     childRefs.current.swipe(dir).then((res) => res);
   };
 
-  const toggleDescription = () => {
-    setDescriptionVisible(!descriptionVisible);
-  };
-
   if (!item?.meta?.image) {
     return null;
   }
@@ -86,21 +81,7 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
                     {meta.name}
                   </Link>
                 </h3>
-
-                <ArrowButton onClick={toggleDescription} />
               </div>
-              {descriptionVisible && meta.description && (
-                <p className={classes.description}>{meta.description}</p>
-              )}
-
-              <a
-                href={`https://rarible.com/token/${item.contract}:${item.tokenId}`}
-                target="_blank"
-                rel="noreferrer"
-                className={classes.buy}
-              >
-                Buy
-              </a>
             </div>
           </TinderCard>
         </div>
