@@ -15,6 +15,18 @@
   box-sizing: border-box;
 }
 
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100% ;
+}
+
+.mainTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .headerLink {
   display: block;
   padding: 0 10px;

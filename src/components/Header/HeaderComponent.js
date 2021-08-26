@@ -1,42 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import classes from "./HeaderComponent.module.scss";
-import BurgerBtn from "../BurgerBtn/BurgerBtn";
-import CircleComponent from "../CircleComponent/CircleComponent";
+import BurgerBtn from "../Icons/BurgerBtn/BurgerBtn";
+import CircleComponent from "../Icons/CircleComponent/CircleComponent";
+import { useLocation } from 'react-router-dom';
+import RefreshIcon from '../Icons/RefreshIcon/RefreshIcon';
+import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 
 const HeaderComponent = () => {
-  const { user, logout, isAuthenticated } = useMoralis();
-
-  // if (!isAuthenticated) {
-  //   return null;
-  // }
+  const location = useLocation();
+  const currentRoute = location.pathname.split('/').slice(-1)[0]
+  const { logout } = useMoralis();
 
   return (
     <header className={classes.header}>
-      <CircleComponent />
-      <BurgerBtn onLogout={logout} />
-      {/*<div className={classes.headerLink}>*/}
-      {/*  <div>*/}
-      {/*    {user && <h1>Welcome {user.get("username")}</h1>}*/}
-      {/*    <span*/}
-      {/*      onClick={() => {*/}
-      {/*        logout();*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      logout*/}
-      {/*    </span>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
-      {/*<Link to="/home" className={classes.headerLink}>*/}
-      {/*  Home*/}
-      {/*</Link>*/}
-      {/*<br />*/}
-      
-      {/*<Link to="liked" className={classes.headerLink}>*/}
-      {/*  Liked*/}
-      {/*</Link>*/}
+      {currentRoute === 'home' ? (
+          <div  className={classes.headerInner}>
+            <RefreshIcon />
+            <span className={classes.mainTitle}>Tracker</span>
+            <FilterIcon />
+          </div>
+      ) :
+        <>
+          <CircleComponent />
+          <BurgerBtn onLogout={logout} />
+        </>
+      }
     </header>
   );
 };

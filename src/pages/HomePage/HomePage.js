@@ -53,22 +53,15 @@ const HomePage = () => {
     getAllItems();
   }, []);
 
-  // check if user have had reaction to this item
-  useEffect(() => {
-    if (index === null || !items.data.length) {
+  const next = useCallback(() => {
+    if (index === items.data.length - 1) {
+      getAllItems();
       return;
     }
+    setIndex(index + 1);
+  }, [index, items.data.length]);
 
-    if (LikesQuery.data.length > 0) {
-      next();
-    }
-
-    const { id } = items.data[index];
-    // setActiveItem(items.data[index]);
-    getItemMetaById(id);
-  }, [LikesQuery.data, items, index]);
-
-  async function getItemMetaById(id) {
+  const getItemMetaById = useCallback(async (id) => {
     try {
       const meta = await raribleApi.getItemMetaById(id);
 
@@ -90,7 +83,24 @@ const HomePage = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [index, items.data, next])
+
+  // check if user have had reaction to this item
+  useEffect(() => {
+    if (index === null || !items.data.length) {
+      return;
+    }
+
+    if (LikesQuery.data.length > 0) {
+      next();
+    }
+
+    const { id } = items.data[index];
+    // setActiveItem(items.data[index]);
+    getItemMetaById(id);
+  }, [LikesQuery.data, items, index, getItemMetaById, next]);
+
+
 
   async function saveReaction(isLike) {
     try {
@@ -109,13 +119,6 @@ const HomePage = () => {
     next();
   }
 
-  function next() {
-    if (index === items.data.length - 1) {
-      getAllItems();
-      return;
-    }
-    setIndex(index + 1);
-  }
 
   console.info('activeItem: ', activeItem);
 

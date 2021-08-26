@@ -9,12 +9,12 @@ const FooterNav = () => {
     <footer className={classes.footer}>
       <div>
         <Link to="/home">
-          <img src={home} alt=""/>
+          <img className={classes.homeImage} src={home} alt=""/>
         </Link>
       </div>
       <div>
         <Link to="/liked">
-          <img src={profileImage} alt=""/>
+          <img className={classes.profileImage} src={profileImage} alt=""/>
         </Link>
       </div>
     </footer>

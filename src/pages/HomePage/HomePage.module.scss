@@ -15,12 +15,13 @@
 .homepageWrapper {
   background-color: #000000;
   min-height: 100vh;
-  padding-bottom: 60px;
   box-sizing: border-box;
 }
 
 .swipeWrapper {
   padding-top: 60px;
+  padding-bottom: 60px;
+  height: 100vh;
 }
 
 .swipeLinkAccept {

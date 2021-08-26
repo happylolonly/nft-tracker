@@ -5,7 +5,6 @@ import classes from './SwipeComponent.module.scss';
 import heartLogo from '../../assets/tick.svg';
 import closeLogo from '../../assets/Close.png';
 import Spinner from '../Spinner/Spinner';
-import ArrowButton from '../ArrowButton/ArrowButton';
 import cn from 'classnames';
 
 const alreadyRemoved = [];
@@ -15,7 +14,7 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
   const [dislike, setDislike] = useState(false);
   const [like, setLike] = useState(false);
   const childRefs = useRef();
-
+  console.log(lastDirection);
   useEffect(() => {
     setDislike(false);
     setLike(false);
@@ -70,11 +69,13 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
             onCardLeftScreen={() => outOfFrame()}
           >
             <div className={classes.card}>
-              <img
-                className={classes.cardImage}
-                src={image.url?.BIG || image.url?.ORIGINAL}
-                alt={meta.name}
-              />
+              <div className={classes.imageWrapper}>
+                <img
+                  className={classes.cardImage}
+                  src={image.url?.BIG || image.url?.ORIGINAL}
+                  alt={meta.name}
+                />
+              </div>
               <div className={classes.cardNameWrapper}>
                 <h3 className={classes.cardName}>
                   <Link to={`/detail/${item.id}`} className={classes.detailLink}>
@@ -91,6 +92,14 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
           <img src={closeLogo} alt="" />
         </span>
         <span className={cn({ [classes.activeLike]: like })} onClick={() => swipe('right')}>
+          <img src={heartLogo} alt="" />
+        </span>
+      </div>
+      <div className={classes.bottomButtons}>
+        <span onClick={() => swipe('left')}>
+          <img src={closeLogo} alt="" />
+        </span>
+        <span onClick={() => swipe('right')}>
           <img src={heartLogo} alt="" />
         </span>
       </div>

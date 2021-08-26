@@ -43,7 +43,9 @@
 
 .footerMenuLink {
   display: block;
-  min-width: 300px;
+  min-width: 80%;
+  max-width: 300px;
+  margin: 0 auto;
   padding: 10px;
   font-size: 12px;
   font-weight: 700;

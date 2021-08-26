@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import ArrowButton from "../ArrowButton/ArrowButton";
+import ArrowButton from "../Icons/ArrowButton/ArrowButton";
 import Spinner from "../Spinner/Spinner";
 import classes from "./Detail.module.scss";
 import FooterNav from "../FooterNav/FooterNav";
@@ -36,7 +36,7 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Creator</dt>
             <dd className={classes.infoValue}>
-              <a href={buyLink} target="_blank">
+              <a href={buyLink} target="_blank" rel="noreferrer">
                 {item && `${item.item.creators[0].account.slice(0, 5)}...`}
               </a>
             </dd>
@@ -44,7 +44,7 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Collection</dt>
             <dd className={classes.infoValue}>
-              <a href={buyLink} target="_blank">
+              <a href={buyLink} target="_blank" rel="noreferrer">
                 {item && `${item.item.contract.slice(0, 5)}...`}
               </a>
             </dd>
@@ -52,7 +52,7 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Owner</dt>
             <dd className={classes.infoValue}>
-              <a href={buyLink} target="_blank">
+              <a href={buyLink} target="_blank" rel="noreferrer">
                 {item && `${item.item.owners[0].slice(0, 5)}...`}
               </a>
             </dd>
@@ -61,7 +61,7 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
         <FooterNav />
         <div className={classes.actions}>
           <button className={classes.dislike} onClick={onDislike} />
-          <a href={buyLink} target="_blank" className={classes.buy}>Buy</a>
+          <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>Buy</a>
           {/*<button className={classes.bid}>Bid</button>*/}
           <button className={classes.like} onClick={onLike} />
         </div>

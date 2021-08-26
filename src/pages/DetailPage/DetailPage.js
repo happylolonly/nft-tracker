@@ -13,21 +13,24 @@ const DetailPage = () => {
   const { user } = useMoralis();
   const Likes = useNewMoralisObject('Likes');
 
-  useEffect(async () => {
-    try {
-      setLoading(true);
-      const meta = await raribleApi.getItemMetaById(id);
-      const item = await raribleApi.getItemById(id);
-      setItem({
-        id,
-        item: item.data,
-        ...meta.data,
-      });
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const meta = await raribleApi.getItemMetaById(id);
+        const item = await raribleApi.getItemById(id);
+        setItem({
+          id,
+          item: item.data,
+          ...meta.data,
+        });
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, []);
+    fetchData()
+  }, [id]);
 
   async function saveReaction(isLike) {
     try {
