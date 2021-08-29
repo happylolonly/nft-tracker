@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import RefreshIcon from '../Icons/RefreshIcon/RefreshIcon';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({prev}) => {
   const location = useLocation();
   const currentRoute = location.pathname.split('/').slice(-1)[0]
   const { logout } = useMoralis();
@@ -16,7 +16,7 @@ const HeaderComponent = () => {
     <header className={classes.header}>
       {currentRoute === 'home' ? (
           <div  className={classes.headerInner}>
-            <RefreshIcon />
+            <RefreshIcon onClick={prev} />
             <span className={classes.mainTitle}>Tracker</span>
             <FilterIcon />
           </div>

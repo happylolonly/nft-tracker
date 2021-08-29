@@ -54,7 +54,6 @@ function LikedNfts() {
   return (
     <div className={classes.likedWrapper}>
       <HeaderComponent />
-      <h2>Liked Nft</h2>
       {isLoading ? (
         'Loading...'
       ) : error ? (
@@ -63,13 +62,13 @@ function LikedNfts() {
         'You not have nft'
       ) : (
         <div>
-          <h5>You have {data.length} liked</h5>
           <ResponsiveMasonry
             columnsCountBreakPoints={{100: 1, 400: 2, 700: 3, 1000: 4}}
           >
             <Masonry>
               {items.map((item) => {
                 const { name, image } = item.meta;
+                if (image?.url?.ORIGINAL.includes('mp4') || image?.url?.ORIGINAL.includes('ipfs://')) return null;
                 return (
                   <Link className={classes.card} to={`/detail/${item.id}`}>
                     <img src={image?.url?.ORIGINAL} alt={name} />

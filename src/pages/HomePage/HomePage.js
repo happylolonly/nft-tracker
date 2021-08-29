@@ -61,6 +61,10 @@ const HomePage = () => {
     setIndex(index + 1);
   }, [index, items.data.length]);
 
+  const prev = useCallback(() => {
+    // TODO: implement
+  }, [index, setIndex]);
+
   const getItemMetaById = useCallback(async (id) => {
     try {
       const meta = await raribleApi.getItemMetaById(id);
@@ -124,7 +128,7 @@ const HomePage = () => {
 
   return (
     <div className={classes.homepageWrapper}>
-      <HeaderComponent />
+      <HeaderComponent prev={prev} />
       <div className={classes.swipeWrapper}>
         <SwipeComponent
           isLoading={isLoading}
