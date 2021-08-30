@@ -13,6 +13,8 @@ const HomePage = () => {
     continuation: null,
   });
   const [activeItem, setActiveItem] = useState(0);
+  const [dislikeItem, setDislikeItem] = useState({});
+
   // const [loadingItem, setLoadingItem] = useState(null);
   const [index, setIndex] = useState(null);
 
@@ -62,7 +64,7 @@ const HomePage = () => {
   }, [index, items.data.length]);
 
   const prev = useCallback(() => {
-    // TODO: implement
+    setActiveItem(dislikeItem)
   }, [index, setIndex]);
 
   const getItemMetaById = useCallback(async (id) => {
@@ -119,10 +121,14 @@ const HomePage = () => {
   }
 
   async function handleClick(isLike) {
-    await saveReaction(isLike);
-    next();
+    if(!isLike) {
+      setDislikeItem(activeItem);
+      next();
+    } else {
+      await saveReaction(isLike);
+      next();
+    }
   }
-
 
   console.info('activeItem: ', activeItem);
 
