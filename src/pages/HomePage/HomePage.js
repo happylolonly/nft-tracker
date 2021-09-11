@@ -45,7 +45,7 @@ const HomePage = () => {
       });
       setIndex(0);
     } catch (error) {
-      console.error(error);
+      console.error(error, 123);
     }
 
     setLoading(false);
@@ -87,7 +87,7 @@ const HomePage = () => {
         meta: meta.data,
       });
     } catch (error) {
-      console.error(error);
+      console.error(error, 123);
     }
   }, [index, items.data, next])
 
@@ -116,7 +116,7 @@ const HomePage = () => {
         nftId: activeItem.id,
       });
     } catch (error) {
-      console.error(error);
+      console.error(error, 321);
     }
   }
 

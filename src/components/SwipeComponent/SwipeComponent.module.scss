@@ -30,6 +30,9 @@
 .imageWrapper {
   height: 100%;
   max-height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .cardNameWrapper {
