@@ -70,9 +70,35 @@ const HomePage = () => {
           return;
         }
 
-        // const { ORIGINAL, BIG } = meta.data.image.url;
+        const { url } = meta.data.image;
+        const { ORIGINAL, BIG } = url;
 
-        // if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
+        if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
+          return next();
+        }
+
+        // const promises = [];
+
+        // Object.keys(url).map((image) => {
+        //   if (url[image].includes('ipfs:')) {
+        //     promises.push(
+        //       (async () => {
+        //         const ipfsHash = url[image].split('ipfs://')[1];
+        //         const url2 = `https://ipfs.moralis.io:2053/${ipfsHash}`;
+        //         const image2 = await axios.get(url2);
+
+        //         url[image] = image2.data;
+        //       })()
+        //     );
+        //   }
+        // });
+
+        // try {
+        //   if (promises.length) {
+        //     await Promise.all(promises);
+        //   }
+        // } catch (error) {
+        //   console.log(error);
         //   return next();
         // }
 
