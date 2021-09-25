@@ -29,7 +29,7 @@ export enum Categories {
   worlds = 'worlds',
 }
 
-export enum PriceStatuses {
+export enum SaleType {
   FIXED_PRICE = 'FIXED_PRICE',
   NOT_FOR_SALE = 'NOT_FOR_SALE',
   OPEN_FOR_OFFERS = 'OPEN_FOR_OFFERS',
@@ -39,10 +39,10 @@ export enum PriceStatuses {
 export function searchMarketplaceItems(params?: {
   size?: number;
   filter?: {
-    category: Categories;
+    category?: Categories;
+    statuses?: SaleType;
     maxPrice?: number;
     minPrice?: number;
-    statuses?: PriceStatuses;
   };
 }) {
   const { filter, size = 20 } = params || {};
