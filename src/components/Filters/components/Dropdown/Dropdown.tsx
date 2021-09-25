@@ -73,7 +73,7 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
                     <div
                       className={[
                         classes.check,
-                        v.value === value?.value ? classes.selected : '',
+                        v.value === String(value) ? classes.selected : '',
                       ].join(' ')}
                     />
                   </button>

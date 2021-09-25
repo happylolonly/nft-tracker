@@ -8,7 +8,7 @@ import RefreshIcon from '../Icons/RefreshIcon/RefreshIcon';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Filter from '../Filters/Filter';
 
-const HeaderComponent = ({ prev }) => {
+const HeaderComponent = ({ prev, getItems }) => {
   const location = useLocation();
   const [{ showFilters }, setState] = useState({ showFilters: false });
   const currentRoute = location.pathname.split('/').slice(-1)[0];
@@ -28,7 +28,11 @@ const HeaderComponent = ({ prev }) => {
               filterOpenHandler();
             }}
           />
-          <Filter filterOpenHandler={filterOpenHandler} showFilters={showFilters} />
+          <Filter
+            filterOpenHandler={filterOpenHandler}
+            showFilters={showFilters}
+            getItems={getItems}
+          />
         </div>
       ) : (
         <>

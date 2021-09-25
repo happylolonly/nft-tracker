@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis';
-import * as raribleApi from '../../api/rarible';
+import { useMoralis, useNewMoralisObject } from 'react-moralis';
+
+import HeaderComponent from 'components/Header/HeaderComponent';
+import SwipeComponent from 'components/SwipeComponent/SwipeComponent';
+import FooterNav from 'components/FooterNav/FooterNav';
+import * as raribleApi from 'api/rarible';
+import { checkLike } from 'api';
+
 import classes from './HomePage.module.scss';
-import HeaderComponent from '../../components/Header/HeaderComponent';
-import SwipeComponent from '../../components/SwipeComponent/SwipeComponent';
-import FooterNav from '../../components/FooterNav/FooterNav';
 
 const HomePage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -15,45 +18,35 @@ const HomePage = () => {
   const [activeItem, setActiveItem] = useState(0);
   const [dislikeItem, setDislikeItem] = useState({});
 
-  // const [loadingItem, setLoadingItem] = useState(null);
   const [index, setIndex] = useState(null);
 
   const { user } = useMoralis();
 
   const Likes = useNewMoralisObject('Likes');
-  const LikesQuery = useMoralisQuery(
-    'Likes',
-    (query) => {
-      if (!(index === null || !items.data.length)) {
-        return query.equalTo('user', user).equalTo('nftId', items.data[index].id);
-      }
-    },
-    [user, index, items]
-    // { autoFetch: false },
-  );
 
-  // function preloadItem() {}
-
-  const getAllItems = useCallback(async () => {
+  const getAllItems = useCallback(async (filters) => {
     setLoading(true);
     try {
-      const { data } = await raribleApi.getAllItems(items.continuation);
+      const { data } = await raribleApi.searchMarketplaceItems({
+        size: 20,
+        filter: filters,
+      });
 
       setItems({
-        data: data.items,
+        data: data,
         continuation: data.continuation,
       });
       setIndex(0);
     } catch (error) {
-      console.error(error, 123);
+      console.error(error);
     }
 
     setLoading(false);
-  }, [items.continuation]);
+  }, []);
 
   useEffect(() => {
     getAllItems();
-  }, []);
+  }, [getAllItems]);
 
   const next = useCallback(() => {
     if (index === items.data.length - 1) {
@@ -61,35 +54,38 @@ const HomePage = () => {
       return;
     }
     setIndex(index + 1);
-  }, [index, items.data.length]);
+  }, [index, items.data.length, getAllItems]);
 
   const prev = useCallback(() => {
-    setActiveItem(dislikeItem)
-  }, [index, setIndex]);
+    setActiveItem(dislikeItem);
+  }, [dislikeItem]);
 
-  const getItemMetaById = useCallback(async (id) => {
-    try {
-      const meta = await raribleApi.getItemMetaById(id);
+  const getItemMetaById = useCallback(
+    async (id) => {
+      try {
+        const meta = await raribleApi.getItemMetaById(id);
 
-      if (!meta.data.image) {
-        next();
-        return;
+        if (!meta.data.image) {
+          next();
+          return;
+        }
+
+        // const { ORIGINAL, BIG } = meta.data.image.url;
+
+        // if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
+        //   return next();
+        // }
+
+        setActiveItem({
+          ...items.data[index],
+          meta: meta.data,
+        });
+      } catch (error) {
+        console.error(error);
       }
-
-      const { ORIGINAL, BIG } = meta.data.image.url;
-
-      if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
-        return next();
-      }
-
-      setActiveItem({
-        ...items.data[index],
-        meta: meta.data,
-      });
-    } catch (error) {
-      console.error(error, 123);
-    }
-  }, [index, items.data, next])
+    },
+    [index, items.data, next]
+  );
 
   // check if user have had reaction to this item
   useEffect(() => {
@@ -97,16 +93,22 @@ const HomePage = () => {
       return;
     }
 
-    if (LikesQuery.data.length > 0) {
-      next();
-    }
+    (async () => {
+      const { id } = items.data[index];
 
-    const { id } = items.data[index];
-    // setActiveItem(items.data[index]);
-    getItemMetaById(id);
-  }, [LikesQuery.data, items, index, getItemMetaById, next]);
+      try {
+        const isLiked = await checkLike(user, id);
 
+        if (isLiked) {
+          next();
+        }
 
+        getItemMetaById(id);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [items, index, getItemMetaById, next, user]);
 
   async function saveReaction(isLike) {
     try {
@@ -116,12 +118,12 @@ const HomePage = () => {
         nftId: activeItem.id,
       });
     } catch (error) {
-      console.error(error, 321);
+      console.error(error);
     }
   }
 
   async function handleClick(isLike) {
-    if(!isLike) {
+    if (!isLike) {
       setDislikeItem(activeItem);
       next();
     } else {
@@ -134,7 +136,7 @@ const HomePage = () => {
 
   return (
     <div className={classes.homepageWrapper}>
-      <HeaderComponent prev={prev} />
+      <HeaderComponent prev={prev} getItems={getAllItems} />
       <div className={classes.swipeWrapper}>
         <SwipeComponent
           isLoading={isLoading}

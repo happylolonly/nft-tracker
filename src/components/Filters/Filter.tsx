@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classes from './Filter.module.scss';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Dropdown from './components/Dropdown/Dropdown';
+import { SaleType } from 'api/rarible';
 
-const Filter = ({ showFilters, filterOpenHandler }) => {
-  const [{ categories, saleType }, setState] = useState({
+const Filter = ({ showFilters, filterOpenHandler, getItems }) => {
+  const [filters, setFilters] = useState({
     categories: undefined,
     saleType: undefined,
   });
 
-  const setCategories = (value) => {
-    setState((prevState) => ({ ...prevState, categories: value }));
-  };
+  function handleFitler(value, name) {
+    setFilters({
+      ...filters,
+      [name]: value,
+    });
+  }
 
-  const setSaleType = (value) => {
-    setState((prevState) => ({ ...prevState, saleType: value }));
-  };
+  useEffect(() => {
+    getItems({
+      category: filters.categories?.toLowerCase(),
+      saleType: filters.saleType,
+    });
+  }, [filters, getItems]);
+
   return (
     <AnimatePresence>
       {showFilters && (
@@ -38,7 +46,7 @@ const Filter = ({ showFilters, filterOpenHandler }) => {
             <li className={classes.filterItem}>
               <Dropdown
                 label="Categories"
-                value={categories}
+                value={filters.categories}
                 options={[
                   { title: 'Art', value: 'Art' },
                   { title: 'Games', value: 'Games' },
@@ -48,20 +56,20 @@ const Filter = ({ showFilters, filterOpenHandler }) => {
                   { title: 'DeFi', value: 'DeFi' },
                   { title: 'Memes', value: 'Memes' },
                 ]}
-                onChange={setCategories}
+                onChange={(value) => handleFitler(value.value, 'categories')}
               />
             </li>
             <li className={classes.filterItem}>
               <Dropdown
                 label="Sale type"
-                value={saleType}
+                value={filters.saleType}
                 options={[
-                  { title: 'Timed auction', value: 'Timed auction' },
-                  { title: 'Fixed price', value: 'Fixed price' },
-                  { title: 'Not for sale', value: 'Not for sale' },
-                  { title: 'Open for offers', value: 'Open for offers' },
+                  { title: 'Timed auction', value: SaleType.AUCTION },
+                  { title: 'Fixed price', value: SaleType.FIXED_PRICE },
+                  { title: 'Not for sale', value: SaleType.NOT_FOR_SALE },
+                  { title: 'Open for offers', value: SaleType.OPEN_FOR_OFFERS },
                 ]}
-                onChange={setSaleType}
+                onChange={(value) => handleFitler(value.value, 'saleType')}
               />
             </li>
           </ul>

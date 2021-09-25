@@ -1,12 +1,26 @@
 import Moralis from 'moralis';
 
 const ArtboardObject = Moralis.Object.extend('Artboard');
+const LikesObject = Moralis.Object.extend('Likes');
 
 // export type Artboard = {
 //   name: string;
 //   owner: object; // user
 //   items: string[];
 // };
+
+export async function checkLike(user, nftId) {
+  try {
+    const query = new Moralis.Query(LikesObject);
+    query.equalTo('user', user).equalTo('nftId', nftId);
+
+    const response = await query.find();
+
+    return response.length; // liked
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getArtboards(user) {
   try {
