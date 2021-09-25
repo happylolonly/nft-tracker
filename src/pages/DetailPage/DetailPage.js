@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import * as raribleApi from "../../api/rarible";
-import HeaderComponent from "../../components/Header/HeaderComponent";
-import Detail from "../../components/Detail/Detail";
-import classes from "./DetailPage.module.scss";
-import {useMoralis, useNewMoralisObject} from "react-moralis";
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import * as raribleApi from '../../api/rarible';
+import HeaderComponent from '../../components/Header/HeaderComponent';
+import Detail from '../../components/Detail/Detail';
+import classes from './DetailPage.module.scss';
+import { useMoralis, useNewMoralisObject } from 'react-moralis';
 
 const DetailPage = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const [item, setItem] = useState();
   const [isLoading, setLoading] = useState(false);
   const { user } = useMoralis();
   const Likes = useNewMoralisObject('Likes');
+
+  const history = useHistory();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,8 +30,8 @@ const DetailPage = () => {
       } catch (error) {
         console.error(error);
       }
-    }
-    fetchData()
+    };
+    fetchData();
   }, [id]);
 
   async function saveReaction(isLike) {
@@ -39,7 +41,8 @@ const DetailPage = () => {
         user,
         nftId: item.id,
       });
-      alert('Your reaction was saved');
+
+      history.push('/home');
     } catch (error) {
       console.error(error);
     }
@@ -56,6 +59,6 @@ const DetailPage = () => {
       />
     </div>
   );
-}
+};
 
 export default DetailPage;

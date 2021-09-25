@@ -136,7 +136,7 @@ const HomePage = () => {
 
   return (
     <div className={classes.homepageWrapper}>
-      <HeaderComponent prev={prev} getItems={getAllItems} />
+      <HeaderComponent prev={prev} getItems={getAllItems} index={index} />
       <div className={classes.swipeWrapper}>
         <SwipeComponent
           isLoading={isLoading}

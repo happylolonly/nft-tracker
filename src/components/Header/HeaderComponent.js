@@ -8,7 +8,7 @@ import RefreshIcon from '../Icons/RefreshIcon/RefreshIcon';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Filter from '../Filters/Filter';
 
-const HeaderComponent = ({ prev, getItems }) => {
+const HeaderComponent = ({ prev, getItems, index }) => {
   const location = useLocation();
   const [{ showFilters }, setState] = useState({ showFilters: false });
   const currentRoute = location.pathname.split('/').slice(-1)[0];
@@ -21,7 +21,7 @@ const HeaderComponent = ({ prev, getItems }) => {
     <header className={classes.header}>
       {currentRoute === 'home' ? (
         <div className={classes.headerInner}>
-          <RefreshIcon onClick={prev} />
+          {prev && index > 0 && <RefreshIcon onClick={prev} />}
           <span className={classes.mainTitle}>Tracker</span>
           <FilterIcon
             onClick={() => {

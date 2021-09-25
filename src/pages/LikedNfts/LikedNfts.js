@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
-import {Link} from 'react-router-dom';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { Link } from 'react-router-dom';
 import classes from './LikedNfts.module.scss';
 
 import * as raribleApi from 'api/rarible';
-import HeaderComponent from "../../components/Header/HeaderComponent";
-import FooterNav from "../../components/FooterNav/FooterNav";
+import HeaderComponent from '../../components/Header/HeaderComponent';
+import FooterNav from '../../components/FooterNav/FooterNav';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -62,15 +62,17 @@ function LikedNfts() {
         'You not have nft'
       ) : (
         <div>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{100: 1, 400: 2, 700: 3, 1000: 4}}
-          >
+          <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
               {items.map((item) => {
                 const { name, image } = item.meta;
-                if (image?.url?.ORIGINAL.includes('mp4') || image?.url?.ORIGINAL.includes('ipfs://')) return null;
+                if (
+                  image?.url?.ORIGINAL.includes('mp4') ||
+                  image?.url?.ORIGINAL.includes('ipfs://')
+                )
+                  return null;
                 return (
-                  <Link className={classes.card} to={`/detail/${item.id}`}>
+                  <Link className={classes.card} to={`/detail/${item.id}`} key={name}>
                     <img src={image?.url?.ORIGINAL} alt={name} />
                     <p className={classes.cardName}>{name}</p>
                   </Link>
@@ -80,7 +82,7 @@ function LikedNfts() {
           </ResponsiveMasonry>
         </div>
       )}
-      <FooterNav/>
+      <FooterNav />
     </div>
   );
 }
