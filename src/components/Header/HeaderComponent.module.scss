@@ -1,7 +1,9 @@
+@import "src/Variables";
+
 .header {
   display: flex;
   min-height: 60px;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   padding: 0 20px;
   font-size: 18px;
@@ -19,7 +21,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100% ;
+  max-width: $CONTAINER_WIDTH;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .mainTitle {

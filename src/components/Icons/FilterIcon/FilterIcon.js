@@ -2,11 +2,11 @@ import React from 'react';
 import circleLogo from '../../../assets/filter02.png'
 import classes from "./FilterIcon.module.scss";
 
-const FilterIcon = () => {
+const FilterIcon = ({onClick}) => {
   return (
-    <div className={classes.imageWrapper} >
+    <button onClick={onClick} aria-label="open filter" className={classes.imageWrapper} >
       <img src={circleLogo} alt='' />
-    </div>
+    </button>
   )
 }
 
