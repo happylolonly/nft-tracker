@@ -27,6 +27,12 @@ export enum Categories {
   photography = 'photography',
   games = 'games',
   worlds = 'worlds',
+  music = 'music',
+  domains = 'ens',
+  defi = 'defi',
+  memes = 'memes',
+  punks = 'punks',
+  nsfw = 'nsfw',
 }
 
 export enum SaleType {

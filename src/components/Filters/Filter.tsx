@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import classes from './Filter.module.scss';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Dropdown from './components/Dropdown/Dropdown';
-import { SaleType } from 'api/rarible';
+import { Categories, SaleType } from 'api/rarible';
 
 const Filter = ({ showFilters, filterOpenHandler, getItems }) => {
   const [filters, setFilters] = useState({
@@ -16,6 +16,8 @@ const Filter = ({ showFilters, filterOpenHandler, getItems }) => {
       ...filters,
       [name]: value,
     });
+
+    filterOpenHandler(false);
   }
 
   useEffect(() => {
@@ -50,11 +52,13 @@ const Filter = ({ showFilters, filterOpenHandler, getItems }) => {
                 options={[
                   { title: 'Art', value: 'Art' },
                   { title: 'Games', value: 'Games' },
-                  { title: 'Metaverses', value: 'Metaverses' },
+                  { title: 'Metaverses', value: Categories.worlds },
                   { title: 'Music', value: 'Music' },
-                  { title: 'Domains', value: 'Domains' },
+                  { title: 'Domains', value: Categories.domains },
                   { title: 'DeFi', value: 'DeFi' },
                   { title: 'Memes', value: 'Memes' },
+                  { title: 'Punks', value: Categories.punks },
+                  { title: '🔞 NSFW', value: Categories.nsfw },
                 ]}
                 onChange={(value) => handleFitler(value.value, 'categories')}
               />
