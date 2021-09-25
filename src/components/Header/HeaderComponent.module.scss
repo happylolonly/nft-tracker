@@ -1,5 +1,3 @@
-@import "src/Variables";
-
 .header {
   display: flex;
   min-height: 60px;
@@ -21,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: $CONTAINER_WIDTH;
+  max-width: var(--container_width);
   position: relative;
   width: 100%;
   margin: 0 auto;
