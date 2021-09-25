@@ -66,14 +66,23 @@ function LikedNfts() {
             <Masonry>
               {items.map((item) => {
                 const { name, image } = item.meta;
+
+                const { ORIGINAL, BIG } = image.url;
+
                 if (
-                  image?.url?.ORIGINAL.includes('mp4') ||
-                  image?.url?.ORIGINAL.includes('ipfs://')
-                )
+                  [ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))
+                ) {
                   return null;
+                }
+
+                // if (
+                //   image?.url?.ORIGINAL.includes('mp4') ||
+                //   image?.url?.ORIGINAL.includes('ipfs://')
+                // )
+                //   return null;
                 return (
                   <Link className={classes.card} to={`/detail/${item.id}`} key={name}>
-                    <img src={image?.url?.ORIGINAL} alt={name} />
+                    <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
                     <p className={classes.cardName}>{name}</p>
                   </Link>
                 );
