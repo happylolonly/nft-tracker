@@ -1,0 +1,16 @@
+.imageWrapper {
+  border: unset;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 44, 44, 0.8);
+  border-radius: 50%;
+}
+
+.mirrorX{
+  img{
+    transform: scaleX(-1);
+  }
+}

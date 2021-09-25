@@ -85,7 +85,10 @@
   width: 100%;
   justify-content: space-between;
   bottom: 10px;
-  padding: 0 5px;
+  padding: 0 ;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: var(--container_width);
 }
 
 .bottomButtons span {

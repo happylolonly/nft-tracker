@@ -3,7 +3,6 @@
   min-height: 60px;
   align-items: stretch;
   justify-content: space-between;
-  padding: 0 20px;
   font-size: 18px;
   color: #ffffff;
   background-color: #000000;
@@ -22,6 +21,7 @@
   max-width: var(--container_width);
   position: relative;
   width: 100%;
+  padding: 0 20px;
   margin: 0 auto;
 }
 

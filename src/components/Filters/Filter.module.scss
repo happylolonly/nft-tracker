@@ -1,3 +1,36 @@
+.filterItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:first-of-type {
+    border-bottom: 1px solid #3A3A3A;
+    padding: 10px 15px 20px;
+  }
+
+  &:not(:first-of-type )  {
+    border-bottom: 1px solid #3A3A3A;
+    margin: 0 15px;
+  }
+  &:last-of-type{
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.filterList{
+  position: relative;
+  padding: 0;
+  width: 100%;
+}
+
+.title{
+  flex-grow: 1;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
 .filter {
   display: flex;
   position: absolute;
@@ -5,6 +38,6 @@
   left: 0;
   right: 0;
   background-color: #2A2A2A;
-  padding: 30px 30px;
+  padding: 0;
   border-radius: 0 0 16px 16px;
 }
