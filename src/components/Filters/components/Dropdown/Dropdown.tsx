@@ -10,7 +10,7 @@ type Value = {
 
 type Props = {
   label: string;
-  value: Value;
+  value: Value | undefined;
   options: Array<Value>;
   onChange: (value: Value | false) => void;
 };
@@ -26,7 +26,7 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
     >
       <div>
         <div className={classes.title}>{label}</div>
-        <div className={classes.value}>{value.title}</div>
+        <div className={classes.value}>{value ? value.title : 'All'}</div>
       </div>
       <LeftIcon mirrorX />
       <AnimatePresence>
@@ -37,25 +37,27 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
             exit={{ y: '-100%' }}
             className={classes.options}
           >
-            <div className={classes.header}>
-              <LeftIcon
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowOptions(false);
-                }}
-              />
+            <button
+              className={classes.header}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowOptions(false);
+              }}
+            >
+              <LeftIcon />
               {label}
-            </div>
+            </button>
             <ul className={classes.values}>
               <li className={classes.option}>
                 <button
                   className={classes.optionButton}
                   onClick={() => {
                     onChange(false);
+                    setShowOptions(false);
                   }}
                 >
                   All
-                  <div className={classes.check} />
+                  <div className={[classes.check, !value ? classes.selected : ''].join(' ')} />
                 </button>
               </li>
               {options.map((v) => (
@@ -64,10 +66,16 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
                     className={classes.optionButton}
                     onClick={() => {
                       onChange(v);
+                      setShowOptions(false);
                     }}
                   >
                     {v.title}
-                    <div className={classes.check} />
+                    <div
+                      className={[
+                        classes.check,
+                        v.value === value?.value ? classes.selected : '',
+                      ].join(' ')}
+                    />
                   </button>
                 </li>
               ))}

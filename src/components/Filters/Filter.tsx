@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classes from './Filter.module.scss';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Dropdown from './components/Dropdown/Dropdown';
 
 const Filter = ({ showFilters, filterOpenHandler }) => {
+  const [{ categories, saleType }, setState] = useState({
+    categories: undefined,
+    saleType: undefined,
+  });
+
+  const setCategories = (value) => {
+    setState((prevState) => ({ ...prevState, categories: value }));
+  };
+
+  const setSaleType = (value) => {
+    setState((prevState) => ({ ...prevState, saleType: value }));
+  };
   return (
     <AnimatePresence>
       {showFilters && (
@@ -26,7 +38,7 @@ const Filter = ({ showFilters, filterOpenHandler }) => {
             <li className={classes.filterItem}>
               <Dropdown
                 label="Categories"
-                value={{ title: 'lol', value: 'lol' }}
+                value={categories}
                 options={[
                   { title: 'Art', value: 'Art' },
                   { title: 'Games', value: 'Games' },
@@ -36,20 +48,20 @@ const Filter = ({ showFilters, filterOpenHandler }) => {
                   { title: 'DeFi', value: 'DeFi' },
                   { title: 'Memes', value: 'Memes' },
                 ]}
-                onChange={() => {}}
+                onChange={setCategories}
               />
             </li>
             <li className={classes.filterItem}>
               <Dropdown
                 label="Sale type"
-                value={{ title: 'lol', value: 'lol' }}
+                value={saleType}
                 options={[
                   { title: 'Timed auction', value: 'Timed auction' },
                   { title: 'Fixed price', value: 'Fixed price' },
                   { title: 'Not for sale', value: 'Not for sale' },
                   { title: 'Open for offers', value: 'Open for offers' },
                 ]}
-                onChange={() => {}}
+                onChange={setSaleType}
               />
             </li>
           </ul>
