@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Dropdown.module.scss';
 import { AnimatePresence, motion } from 'framer-motion';
 import LeftIcon from '../../../Icons/LeftIcon/LeftIcon';
@@ -13,10 +13,20 @@ type Props = {
   value: Value | undefined;
   options: Array<Value>;
   onChange: (value: Value | false) => void;
+  setShowPrice: (price: boolean) => void;
 };
 
-const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) => {
+const Dropdown: React.FC<Props> = ({ label, value, options, onChange, setShowPrice }: Props) => {
   const [showOptions, setShowOptions] = useState(false);
+
+  useEffect(() => {
+    if (showOptions) {
+      setShowPrice(false);
+    } else {
+      setShowPrice(true);
+    }
+  }, [showOptions]);
+
   return (
     <button
       className={classes.dropdown}
