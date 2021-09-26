@@ -8,6 +8,7 @@ import * as raribleApi from 'api/rarible';
 import { checkLike } from 'api';
 
 import classes from './HomePage.module.scss';
+import { getArtboards } from '../../api';
 
 const HomePage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -17,12 +18,21 @@ const HomePage = () => {
   });
   const [activeItem, setActiveItem] = useState(0);
   const [dislikeItem, setDislikeItem] = useState({});
+  const [artboards, setArtboards] = useState([]);
 
   const [index, setIndex] = useState(null);
 
   const { user } = useMoralis();
 
   const Likes = useNewMoralisObject('Likes');
+
+  useEffect(async () => {
+    if (user) {
+      const d = await getArtboards(user);
+      console.log('d', d);
+      setArtboards(d);
+    }
+  }, [user]);
 
   const getAllItems = useCallback(async (filters) => {
     setLoading(true);
