@@ -8,6 +8,7 @@ import * as raribleApi from 'api/rarible';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import FooterNav from '../../components/FooterNav/FooterNav';
 import { createArtboard, getArtboards } from '../../api';
+import ArtBoard from '../../components/ArtBoard/ArtBoard';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -32,7 +33,12 @@ function LikedNfts() {
 
   const addArtboard = async () => {
     const d = await createArtboard('lol', user);
-    console.log('d', d);
+  };
+
+  const addToArtboard = async (items, id = 0) => {
+    artboards[id].save({
+      items: [...artboards[0].attributes.items, items],
+    });
   };
 
   useEffect(async () => {
@@ -78,6 +84,11 @@ function LikedNfts() {
         <div>
           <div>
             <button onClick={addArtboard}>add artBoard</button>
+            <div className={classes.artBoardWrapper}>
+              {artboards.map((art) => (
+                <ArtBoard attr={art.attributes} />
+              ))}
+            </div>
           </div>
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
@@ -100,7 +111,18 @@ function LikedNfts() {
                 return (
                   <Link className={classes.card} to={`/detail/${item.id}`} key={name}>
                     <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
-                    <p className={classes.cardName}>{name}</p>
+                    <div className={classes.cardName}>
+                      {name}{' '}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          addToArtboard(item);
+                        }}
+                      >
+                        Добавить в
+                      </button>
+                    </div>
                   </Link>
                 );
               })}
