@@ -131,7 +131,7 @@ function LikedNfts() {
                     addArtboard(newName);
                   }}
                 >
-                  Создать
+                  Create
                 </button>
               </div>
             </Modal>
@@ -142,7 +142,7 @@ function LikedNfts() {
             </div>
           </div>
 
-          {items.length && <h3>Your liked NFTs</h3>}
+          {items.length && <h3>Your liked NFTs ({items.length})</h3>}
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
               {items.map((item, itemID) => {
@@ -181,16 +181,18 @@ function LikedNfts() {
                       >
                         <TelegramIcon size={32} round={true} />
                       </TelegramShareButton>
-                      <button
-                        className={classes.topButton}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          setAddToArtboardModalIsOpen(itemID);
-                        }}
-                      >
-                        to ArtBoard
-                      </button>
+                      {artboards.length > 0 && (
+                        <button
+                          className={classes.topButton}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setAddToArtboardModalIsOpen(itemID);
+                          }}
+                        >
+                          Add to artboard
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
