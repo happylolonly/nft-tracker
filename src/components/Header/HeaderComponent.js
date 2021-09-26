@@ -28,7 +28,7 @@ const HeaderComponent = ({ prev }) => {
               filterOpenHandler();
             }}
           />
-          <Filter filterOpenHandler={filterOpenHandler} showFilters={showFilters} />
+          <Filter setFilter={setState} filterOpenHandler={filterOpenHandler} showFilters={showFilters} />
         </div>
       ) : (
         <>

@@ -4,31 +4,31 @@
   align-items: center;
 
   &:first-of-type {
-    border-bottom: 1px solid #3A3A3A;
+    border-bottom: 1px solid #3a3a3a;
     padding: 10px 15px 20px;
   }
 
-  &:not(:first-of-type )  {
-    border-bottom: 1px solid #3A3A3A;
+  &:not(:first-of-type) {
+    border-bottom: 1px solid #3a3a3a;
     margin: 0 15px;
   }
-  &:last-of-type{
+  &:last-of-type {
     border-bottom: 1px solid transparent;
   }
 }
 
-.filterList{
+.filterList {
   position: relative;
   padding: 0;
   width: 100%;
 }
 
-.title{
+.title {
   flex-grow: 1;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .filter {
@@ -37,7 +37,12 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: #2A2A2A;
+  background-color: #2a2a2a;
   padding: 0;
   border-radius: 0 0 16px 16px;
+}
+
+.count {
+  font-size: 14px;
+  margin-left: 500px;
 }
