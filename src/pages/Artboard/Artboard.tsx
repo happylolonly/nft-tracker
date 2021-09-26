@@ -48,26 +48,28 @@ function Artboard() {
   return (
     <div className={styles.wrraper}>
       <h3>Artboard {artboard.name}</h3>
-      {artboard.items?.map((item) => {
-        const { name, imagePreview } = item.properties;
+      <div>
+        {artboard.items?.map((item) => {
+          const { name, imagePreview } = item.properties;
 
-        // debugger;
+          // debugger;
 
-        // const { ORIGINAL, BIG } = image.url;
+          // const { ORIGINAL, BIG } = image.url;
 
-        // if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
-        //   return null;
-        // }
+          // if ([ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))) {
+          //   return null;
+          // }
 
-        return (
-          <div className={classes.card} to={`/detail/${item.id}`} key={name}>
-            <Link to={`/detail/${item.id}`} key={name}>
-              <img src={imagePreview} alt={name} />
-            </Link>
-            <div className={classes.cardName}>{name} </div>
-          </div>
-        );
-      })}
+          return (
+            <div className={classes.card} to={`/detail/${item.id}`} key={name}>
+              <Link to={`/detail/${item.id}`} key={name}>
+                <img src={imagePreview} alt={name} />
+              </Link>
+              <div className={classes.cardName}>{name} </div>
+            </div>
+          );
+        })}
+      </div>
       <p
         style={{
           color: 'white',

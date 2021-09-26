@@ -1,4 +1,10 @@
 .wrraper {
+  max-height: 90vh;
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+  }
   h3 {
     color: white;
     font-size: 20px;
