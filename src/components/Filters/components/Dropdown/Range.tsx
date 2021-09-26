@@ -13,7 +13,7 @@ const Range: FC<PropsType> = ({ onChange }: PropsType) => {
 
   return (
     <Nouislider
-      range={{ min: 0.01, max: 5 }}
+      range={{ min: 0, max: 10 }}
       start={[0.01, 2]}
       step={0.01}
       connect

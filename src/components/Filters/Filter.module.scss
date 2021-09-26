@@ -44,5 +44,14 @@
 
 .count {
   font-size: 14px;
-  margin-left: 500px;
+}
+
+.priceBlock {
+  width: 100%;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
