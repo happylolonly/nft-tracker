@@ -7,9 +7,11 @@ import classes from './LikedNfts.module.scss';
 import * as raribleApi from 'api/rarible';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import FooterNav from '../../components/FooterNav/FooterNav';
+import { createArtboard, getArtboards } from '../../api';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
+  const [artboards, setArtboards] = useState([]);
 
   const { user } = useMoralis();
 
@@ -22,12 +24,24 @@ function LikedNfts() {
   async function getItemById(id) {
     try {
       const item = await raribleApi.getItemById(id, true);
-
       return item.data;
     } catch (error) {
       console.error(error);
     }
   }
+
+  const addArtboard = async () => {
+    const d = await createArtboard('lol', user);
+    console.log('d', d);
+  };
+
+  useEffect(async () => {
+    if (user) {
+      const d = await getArtboards(user);
+      console.log('d', d);
+      setArtboards(d);
+    }
+  }, [user]);
 
   useEffect(() => {
     (async () => {
@@ -62,6 +76,9 @@ function LikedNfts() {
         'You not have nft'
       ) : (
         <div>
+          <div>
+            <button onClick={addArtboard}>add artBoard</button>
+          </div>
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
               {items.map((item) => {
