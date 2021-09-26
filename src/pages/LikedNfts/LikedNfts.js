@@ -157,7 +157,7 @@ function LikedNfts() {
             </div>
           </div>
 
-          {items.length && <h3>Your liked NFTs ({items.length})</h3>}
+          {items.length > 0 && <h3>Your liked NFTs ({items.length})</h3>}
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
               {items.map((item, itemID) => {
