@@ -49,7 +49,9 @@ function Artboard() {
     <div className={styles.wrraper}>
       <h3>Artboard {artboard.name}</h3>
       {artboard.items?.map((item) => {
-        const { name, image } = item.properties;
+        const { name, imagePreview } = item.properties;
+
+        // debugger;
 
         // const { ORIGINAL, BIG } = image.url;
 
@@ -60,7 +62,7 @@ function Artboard() {
         return (
           <div className={classes.card} to={`/detail/${item.id}`} key={name}>
             <Link to={`/detail/${item.id}`} key={name}>
-              <img src={image} alt={name} />
+              <img src={imagePreview} alt={name} />
             </Link>
             <div className={classes.cardName}>{name} </div>
           </div>
