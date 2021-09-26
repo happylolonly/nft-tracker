@@ -43,9 +43,13 @@ function LikedNfts() {
     await getData();
   };
 
-  const addToArtboard = async (items, id = 0) => {
+  const addToArtboard = async (itemId, id) => {
+    let images = [items[itemId]];
+    if (artboards[id]?.attributes?.items) {
+      images = [...artboards[id].attributes.items, ...images];
+    }
     artboards[id].save({
-      items: [...artboards[0].attributes.items, items],
+      items: images,
     });
   };
   const getData = async () => {
@@ -111,21 +115,24 @@ function LikedNfts() {
               }}
               center
             >
-              <input
-                type="text"
-                value={newName}
-                onChange={(e) => {
-                  setNewName(e.target.value);
-                }}
-              />
-              <button
-                className={classes.topButton}
-                onClick={() => {
-                  addArtboard(newName);
-                }}
-              >
-                Создать
-              </button>
+              <div className={classes.addArtboardContainer}>
+                <input
+                  placeholder="Artboard name"
+                  type="text"
+                  value={newName}
+                  onChange={(e) => {
+                    setNewName(e.target.value);
+                  }}
+                />
+                <button
+                  className={classes.topButton}
+                  onClick={() => {
+                    addArtboard(newName);
+                  }}
+                >
+                  Создать
+                </button>
+              </div>
             </Modal>
             <div className={classes.artBoardWrapper}>
               {artboards.map((art) => (
@@ -135,7 +142,7 @@ function LikedNfts() {
           </div>
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
-              {items.map((item) => {
+              {items.map((item, itemID) => {
                 const { name, image } = item.meta;
 
                 const { ORIGINAL, BIG } = image.url;
@@ -152,8 +159,10 @@ function LikedNfts() {
                 // )
                 //   return null;
                 return (
-                  <Link className={classes.card} to={`/detail/${item.id}`} key={name}>
-                    <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
+                  <div className={classes.card} to={`/detail/${item.id}`} key={name}>
+                    <Link to={`/detail/${item.id}`} key={name}>
+                      <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
+                    </Link>
                     <div className={classes.cardName}>
                       {name}{' '}
                       <button
@@ -161,35 +170,38 @@ function LikedNfts() {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          setAddToArtboardModalIsOpen(true);
+                          setAddToArtboardModalIsOpen(itemID);
                         }}
                       >
-                        Добавить в подборку
+                        Add to ... {itemID}
                       </button>
-                      <Modal
-                        open={addToArtboardModalIsOpen}
-                        onClose={() => {
-                          setAddToArtboardModalIsOpen(false);
-                        }}
-                        center
-                      >
-                        <div className={classes.artModalContainer}>
-                          {artboards.map((art, index) => (
-                            <button
-                              className={classes.topButton}
-                              onClick={() => {
-                                addToArtboard(item, index);
-                              }}
-                            >
-                              {art.attributes.name}
-                            </button>
-                          ))}
-                        </div>
-                      </Modal>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
+              <Modal
+                open={addToArtboardModalIsOpen !== false}
+                onClose={() => {
+                  setAddToArtboardModalIsOpen(false);
+                }}
+                center
+              >
+                <div className={classes.artModalContainer}>
+                  {artboards.map((art, index) => (
+                    <button
+                      className={classes.topButton}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addToArtboard(addToArtboardModalIsOpen, index);
+                        setAddToArtboardModalIsOpen(false);
+                      }}
+                    >
+                      {art.attributes.name}
+                    </button>
+                  ))}
+                </div>
+              </Modal>
             </Masonry>
           </ResponsiveMasonry>
         </div>

@@ -28,4 +28,13 @@ body {
     opacity: 0.8;
   }
 }
-
+.react-responsive-modal-root{
+  .react-responsive-modal-modal{
+    background-color: #202020;
+    svg{
+      path{
+        fill: white;
+      }
+    }
+  }
+}
