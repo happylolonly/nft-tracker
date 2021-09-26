@@ -14,7 +14,9 @@ import { Modal } from 'react-responsive-modal';
 function LikedNfts() {
   const [items, setItems] = useState([]);
   const [artboards, setArtboards] = useState([]);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [newName, setNewName] = useState('');
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [addToArtboardModalIsOpen, setAddToArtboardModalIsOpen] = useState(false);
 
   const { user } = useMoralis();
 
@@ -33,8 +35,12 @@ function LikedNfts() {
     }
   }
 
-  const addArtboard = async () => {
-    const d = await createArtboard('lol', user);
+  const addArtboard = async (name) => {
+    if (!name) return;
+    setNewName('');
+    setIsOpen(false);
+    const d = await createArtboard(name, user);
+    await getData();
   };
 
   const addToArtboard = async (items, id = 0) => {
@@ -42,13 +48,15 @@ function LikedNfts() {
       items: [...artboards[0].attributes.items, items],
     });
   };
-
-  useEffect(async () => {
+  const getData = async () => {
     if (user) {
       const d = await getArtboards(user);
       console.log('d', d);
       setArtboards(d);
     }
+  };
+  useEffect(async () => {
+    await getData();
   }, [user]);
 
   useEffect(() => {
@@ -88,10 +96,10 @@ function LikedNfts() {
             <div className={classes.topHeader}>
               <span>Art Boards: {artboards.length} boards</span>
               <button
-                className={classes.topButton}
                 onClick={() => {
                   setIsOpen(true);
                 }}
+                className={classes.topButton}
               >
                 add artBoard
               </button>
@@ -103,12 +111,21 @@ function LikedNfts() {
               }}
               center
             >
-              <h2>Simple centered modal</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
-                risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
-                quam.
-              </p>
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => {
+                  setNewName(e.target.value);
+                }}
+              />
+              <button
+                className={classes.topButton}
+                onClick={() => {
+                  addArtboard(newName);
+                }}
+              >
+                Создать
+              </button>
             </Modal>
             <div className={classes.artBoardWrapper}>
               {artboards.map((art) => (
@@ -140,14 +157,35 @@ function LikedNfts() {
                     <div className={classes.cardName}>
                       {name}{' '}
                       <button
+                        className={classes.topButton}
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          addToArtboard(item);
+                          setAddToArtboardModalIsOpen(true);
                         }}
                       >
-                        Добавить в
+                        Добавить в подборку
                       </button>
+                      <Modal
+                        open={addToArtboardModalIsOpen}
+                        onClose={() => {
+                          setAddToArtboardModalIsOpen(false);
+                        }}
+                        center
+                      >
+                        <div className={classes.artModalContainer}>
+                          {artboards.map((art, index) => (
+                            <button
+                              className={classes.topButton}
+                              onClick={() => {
+                                addToArtboard(item, index);
+                              }}
+                            >
+                              {art.attributes.name}
+                            </button>
+                          ))}
+                        </div>
+                      </Modal>
                     </div>
                   </Link>
                 );
