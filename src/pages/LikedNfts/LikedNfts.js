@@ -10,6 +10,7 @@ import { createArtboard, getArtboards } from '../../api';
 import ArtBoard from '../../components/ArtBoard/ArtBoard';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import { VKIcon, VKShareButton } from 'react-share';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -165,6 +166,13 @@ function LikedNfts() {
                     </Link>
                     <div className={classes.cardName}>
                       {name}{' '}
+                      <VKShareButton
+                        title={name}
+                        image={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL}
+                        url={`https://nft-tracker.netlify.app/detail/${item.id}`}
+                      >
+                        <VKIcon size={32} round={true} />
+                      </VKShareButton>
                       <button
                         className={classes.topButton}
                         onClick={(e) => {
