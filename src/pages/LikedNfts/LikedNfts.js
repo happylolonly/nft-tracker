@@ -10,6 +10,7 @@ import { createArtboard, getArtboards } from '../../api';
 import ArtBoard from '../../components/ArtBoard/ArtBoard';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import { VKIcon, VKShareButton, TelegramShareButton, TelegramIcon } from 'react-share';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -164,7 +165,20 @@ function LikedNfts() {
                       <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
                     </Link>
                     <div className={classes.cardName}>
-                      {name}{' '}
+                      <span>{name}</span>
+                      <VKShareButton
+                        title={name}
+                        image={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL}
+                        url={`https://nft-tracker.netlify.app/detail/${item.id}`}
+                      >
+                        <VKIcon size={32} round={true} />
+                      </VKShareButton>
+                      <TelegramShareButton
+                        title={name}
+                        url={`https://nft-tracker.netlify.app/detail/${item.id}`}
+                      >
+                        <TelegramIcon size={32} round={true} />
+                      </TelegramShareButton>
                       <button
                         className={classes.topButton}
                         onClick={(e) => {
@@ -173,7 +187,7 @@ function LikedNfts() {
                           setAddToArtboardModalIsOpen(itemID);
                         }}
                       >
-                        Add to ... {itemID}
+                        to ArtBoard
                       </button>
                     </div>
                   </div>

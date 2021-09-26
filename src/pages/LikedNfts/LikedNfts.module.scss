@@ -82,7 +82,10 @@
 
 .cardName {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   align-items: center;
   margin: 10px 0 20px;
+  &>span{
+    margin-right: auto;
+  }
 }
