@@ -32,6 +32,7 @@ const HeaderComponent = ({ prev, getItems, index }) => {
             filterOpenHandler={filterOpenHandler}
             showFilters={showFilters}
             getItems={getItems}
+            setFilter={setState}
           />
         </div>
       ) : (
