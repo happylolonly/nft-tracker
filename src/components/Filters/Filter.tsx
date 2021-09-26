@@ -7,6 +7,7 @@ import Range from 'components/Filters/components/Dropdown/Range';
 import { Categories, SaleType } from 'api/rarible';
 
 const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
+  const [showPrice, setShowPrice] = useState(true);
   const [filters, setFilters] = useState({
     categories: undefined,
     saleType: undefined,
@@ -81,6 +82,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
             </li>
             <li className={classes.filterItem}>
               <Dropdown
+                setShowPrice={setShowPrice}
                 label="Categories"
                 value={filters.categories}
                 options={[
@@ -99,6 +101,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
             </li>
             <li className={classes.filterItem}>
               <Dropdown
+                setShowPrice={setShowPrice}
                 label="Sale type"
                 value={filters.saleType}
                 options={[
@@ -110,17 +113,19 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
                 onChange={(value) => handleFitler(value.value, 'saleType')}
               />
             </li>
-            <li className={classes.filterItem}>
-              <div className={classes.priceBlock}>
-                <header>
-                  <h5>Price</h5>
-                  <span className={classes.count}>
-                    {start} - {end} ETH
-                  </span>
-                </header>
-                <Range onChange={handleRangeChange} />
-              </div>
-            </li>
+            {showPrice && (
+              <li className={classes.filterItem}>
+                <div className={classes.priceBlock}>
+                  <header>
+                    <h5>Price</h5>
+                    <span className={classes.count}>
+                      {start} - {end} ETH
+                    </span>
+                  </header>
+                  <Range onChange={handleRangeChange} />
+                </div>
+              </li>
+            )}
           </ul>
         </motion.div>
       )}
