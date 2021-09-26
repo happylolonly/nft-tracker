@@ -16,9 +16,15 @@
 .homeImage {
   height: 24px;
   width: auto;
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .profileImage {
   height: 24px;
   width: auto;
+  &:hover {
+    opacity: 0.6;
+  }
 }
