@@ -165,7 +165,7 @@ function LikedNfts() {
                       <img src={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL} alt={name} />
                     </Link>
                     <div className={classes.cardName}>
-                      {name}{' '}
+                      <span>{name}</span>
                       <VKShareButton
                         title={name}
                         image={ORIGINAL.includes('ipfs:') ? BIG : ORIGINAL}
@@ -187,7 +187,7 @@ function LikedNfts() {
                           setAddToArtboardModalIsOpen(itemID);
                         }}
                       >
-                        Add to ... {itemID}
+                        to ArtBoard
                       </button>
                     </div>
                   </div>
