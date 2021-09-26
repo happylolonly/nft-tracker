@@ -6,6 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 
 import classes from '../LikedNfts/LikedNfts.module.scss';
 import styles from './Artboard.module.scss';
+import { TelegramIcon, TelegramShareButton } from 'react-share';
 
 function Artboard() {
   const { user } = useMoralis();
@@ -58,7 +59,9 @@ function Artboard() {
         );
       })}
 
-      <button>Share</button>
+      <TelegramShareButton title={artboard.name} url={document.URL}>
+        <TelegramIcon size={32} round={true} />
+      </TelegramShareButton>
     </div>
   );
 }

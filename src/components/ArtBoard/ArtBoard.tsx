@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import classes from './ArtBoard.module.scss';
+import { TelegramIcon, TelegramShareButton } from 'react-share';
 const ArtBoard: React.FC = ({ attr }) => {
   const { items = [], name } = attr.attributes;
   return (
@@ -22,6 +23,9 @@ const ArtBoard: React.FC = ({ attr }) => {
         ))}
       </div>
       <div className={classes.name}>{name}</div>
+      <TelegramShareButton title={name} url={`https://nft-tracker.netlify.app/artboard/${attr.id}`}>
+        <TelegramIcon size={32} round={true} />
+      </TelegramShareButton>
       <div className={classes.items}>{items.length} items </div>
 
       {items.length === 0 && (
