@@ -3,16 +3,18 @@ import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Link } from 'react-router-dom';
 import classes from './LikedNfts.module.scss';
-
 import * as raribleApi from 'api/rarible';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import FooterNav from '../../components/FooterNav/FooterNav';
 import { createArtboard, getArtboards } from '../../api';
 import ArtBoard from '../../components/ArtBoard/ArtBoard';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
   const [artboards, setArtboards] = useState([]);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const { user } = useMoralis();
 
@@ -82,8 +84,32 @@ function LikedNfts() {
         'You not have nft'
       ) : (
         <div>
-          <div>
-            <button onClick={addArtboard}>add artBoard</button>
+          <div className={classes.topWrapper}>
+            <div className={classes.topHeader}>
+              <span>Art Boards: {artboards.length} boards</span>
+              <button
+                className={classes.topButton}
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                add artBoard
+              </button>
+            </div>
+            <Modal
+              open={modalIsOpen}
+              onClose={() => {
+                setIsOpen(false);
+              }}
+              center
+            >
+              <h2>Simple centered modal</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non
+                risus hendrerit venenatis. Pellentesque sit amet hendrerit risus, sed porttitor
+                quam.
+              </p>
+            </Modal>
             <div className={classes.artBoardWrapper}>
               {artboards.map((art) => (
                 <ArtBoard attr={art.attributes} />
