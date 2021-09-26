@@ -145,7 +145,7 @@ function LikedNfts() {
               {items.map((item, itemID) => {
                 const { name, image } = item.meta;
 
-                const { ORIGINAL, BIG } = image?.url;
+                const { ORIGINAL, BIG } = image?.url || {};
 
                 if (
                   [ORIGINAL || 'ipfs:', BIG || 'ipfs:'].every((image) => image.includes('ipfs:'))
