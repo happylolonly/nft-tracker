@@ -30,7 +30,8 @@ function LikedNfts() {
 
   const { data, isLoading, error } = useMoralisQuery(
     'Likes',
-    (query) => query.equalTo('user', user).equalTo('like', true).exists('nftId'),
+    (query) =>
+      query.equalTo('user', user).equalTo('like', true).exists('nftId').descending('createdAt'),
     [user]
   );
 
@@ -124,6 +125,13 @@ function LikedNfts() {
               center
             >
               <div className={classes.addArtboardContainer}>
+                <p
+                  style={{
+                    color: 'white',
+                  }}
+                >
+                  Create artboard to add your liked NFTs
+                </p>
                 <input
                   placeholder="Artboard name"
                   type="text"
