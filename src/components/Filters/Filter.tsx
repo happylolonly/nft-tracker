@@ -44,7 +44,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
     //   minPrice: start,
     //   maxPrice: end,
     // });
-    setRangeValue({ start, end });
+    setRangeValue({ start: start.toFixed(2), end: end.toFixed(2) });
   };
 
   useEffect(() => {
