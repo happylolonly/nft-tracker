@@ -105,7 +105,7 @@ function LikedNfts() {
                 }}
                 className={classes.topButton}
               >
-                add artBoard
+                Create Artboard
               </button>
             </div>
             <Modal
@@ -136,7 +136,7 @@ function LikedNfts() {
             </Modal>
             <div className={classes.artBoardWrapper}>
               {artboards.map((art) => (
-                <ArtBoard attr={art.attributes} />
+                <ArtBoard attr={art} />
               ))}
             </div>
           </div>

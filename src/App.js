@@ -8,6 +8,7 @@ import DetailPage from './pages/DetailPage/DetailPage';
 // import HeaderComponent from "./components/Header/HeaderComponent";
 import Login from './pages/Login/Login';
 import { useMoralis } from 'react-moralis';
+import Artboard from 'pages/Artboard/Artboard';
 
 function App() {
   const { isAuthenticated, isAuthUndefined } = useMoralis();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/home" component={HomePage} />
         <Route path="/detail/:id" component={DetailPage} />
         <Route path="/login" component={Login} />
+        <Route path="/artboard/:id" component={Artboard} />
 
         <Route path="/liked">
           <LikedNfts />

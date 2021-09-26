@@ -1,9 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import classes from './ArtBoard.module.scss';
 const ArtBoard: React.FC = ({ attr }) => {
-  const { items = [], name } = attr;
+  const { items = [], name } = attr.attributes;
   return (
-    <div className={classes.artBoard}>
+    <Link
+      to={`/artboard/${attr.id}`}
+      onClick={(e) => {
+        if (items.length === 0) {
+          e.preventDefault();
+        }
+      }}
+      className={classes.artBoard}
+    >
       <div className={classes.imageWrapper}>
         {items.slice(0, 3).map((i) => (
           <div className={classes.image}>
@@ -13,7 +23,7 @@ const ArtBoard: React.FC = ({ attr }) => {
       </div>
       <div className={classes.name}>{name}</div>
       <div className={classes.items}>{items.length} items </div>
-    </div>
+    </Link>
   );
 };
 
