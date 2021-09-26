@@ -105,7 +105,7 @@ function LikedNfts() {
                 }}
                 className={classes.topButton}
               >
-                Create Artboard
+                Create artboard
               </button>
             </div>
             <Modal
@@ -140,6 +140,8 @@ function LikedNfts() {
               ))}
             </div>
           </div>
+
+          {items.length && <h3>Your liked NFTs</h3>}
           <ResponsiveMasonry columnsCountBreakPoints={{ 100: 1, 400: 2, 700: 3, 1000: 4 }}>
             <Masonry>
               {items.map((item, itemID) => {

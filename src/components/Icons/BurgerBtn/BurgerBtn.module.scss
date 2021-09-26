@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  margin-left: auto;
 }
 
 .burgerDot {
@@ -50,7 +51,7 @@
   font-size: 12px;
   font-weight: 700;
   text-align: center;
-  background-color: #3A3A3A;
+  background-color: #3a3a3a;
   color: #ffffff;
   border-radius: 8px;
   &:not(:last-child) {

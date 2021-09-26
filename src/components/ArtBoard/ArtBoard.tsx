@@ -23,6 +23,17 @@ const ArtBoard: React.FC = ({ attr }) => {
       </div>
       <div className={classes.name}>{name}</div>
       <div className={classes.items}>{items.length} items </div>
+
+      {items.length === 0 && (
+        <p
+          style={{
+            fontSize: 12,
+            paddingLeft: 10,
+          }}
+        >
+          Add some NFT to this artboard
+        </p>
+      )}
     </Link>
   );
 };

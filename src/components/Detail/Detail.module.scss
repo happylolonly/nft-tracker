@@ -7,6 +7,7 @@
 
   img {
     max-width: 100%;
+    max-height: 80vh;
   }
 
   footer {
@@ -25,7 +26,7 @@
   padding-bottom: 1rem;
   padding-left: 15px;
   padding-right: 15px;
-  border-bottom: 1px solid #2A2A2A;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .titleInfo {
@@ -40,7 +41,7 @@
 }
 
 .secondaryInfo {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 .description {
@@ -91,7 +92,7 @@
   left: 0;
   right: 0;
   padding: 10px;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -101,7 +102,7 @@
 .like {
   width: 60px;
   height: 60px;
-  background-color: #3A3A3A;
+  background-color: #3a3a3a;
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -109,11 +110,11 @@
 }
 
 .dislike {
-  background-image: url("../../assets/cross.svg");
+  background-image: url('../../assets/cross.svg');
 }
 
 .like {
-  background-image: url("../../assets/tick.svg");
+  background-image: url('../../assets/tick.svg');
 }
 
 .buy,
@@ -129,14 +130,14 @@
 }
 
 .buy {
-  background: #0040E3;
+  background: #0040e3;
   text-align: center;
   text-decoration: none;
 }
 
 .bid {
   margin-right: 10px;
-  background-color: #3A3A3A;
+  background-color: #3a3a3a;
 }
 
 @media (min-width: 1000px) {
@@ -163,7 +164,7 @@
   .allInfo {
     display: flex;
     flex-direction: column;
-    border-left: 1px solid #2A2A2A;
+    border-left: 1px solid #2a2a2a;
     box-sizing: border-box;
   }
 }

@@ -37,7 +37,7 @@ const HeaderComponent = ({ prev, getItems, index }) => {
         </div>
       ) : (
         <>
-          <CircleComponent />
+          {/* <CircleComponent /> */}
           <BurgerBtn onLogout={logout} />
         </>
       )}
