@@ -1,21 +1,23 @@
-import React, {useState} from "react";
-import ArrowButton from "../Icons/ArrowButton/ArrowButton";
-import Spinner from "../Spinner/Spinner";
-import classes from "./Detail.module.scss";
-import FooterNav from "../FooterNav/FooterNav";
+import React, { useState } from 'react';
+import ArrowButton from '../Icons/ArrowButton/ArrowButton';
+import Spinner from '../Spinner/Spinner';
+import classes from './Detail.module.scss';
+import FooterNav from '../FooterNav/FooterNav';
 
-const Detail = ({item, isLoading, onDislike, onLike}) => {
+const Detail = ({ item, isLoading, onDislike, onLike }) => {
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const buyLink = `https://rarible.com/token/${item?.item?.contract}:${item?.item?.tokenId}`;
 
   const toggleDescription = () => {
     setDescriptionVisible(!descriptionVisible);
-  }
+  };
 
-  return isLoading ? <Spinner /> : (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <main className={classes.detailWrapper}>
       <div className={classes.image}>
-        <img src={item?.image?.url?.BIG || item?.image?.url?.ORIGINAL} alt=""/>
+        <img src={item?.image?.url?.BIG || item?.image?.url?.ORIGINAL} alt="" />
       </div>
       <div className={classes.allInfo}>
         <div className={classes.titleWrapper}>
@@ -23,15 +25,11 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
             <h1 className={classes.title}>{item?.name}</h1>
             {/*<p className={classes.secondaryInfo}>0.15 ETH</p>*/}
           </div>
-          <ArrowButton onClick={toggleDescription}/>
+          <ArrowButton onClick={toggleDescription} />
         </div>
 
-        {descriptionVisible && (
-          <p className={classes.description}>
-            {item?.description}
-          </p>
-        )}
-        <p className={classes.saleInfo}>15% of sales will go to creator</p>
+        {descriptionVisible && <p className={classes.description}>{item?.description}</p>}
+        {/* <p className={classes.saleInfo}>15% of sales will go to creator</p> */}
         <dl className={classes.productInfo}>
           <div className={classes.infoItem}>
             <dt className={classes.infoTitle}>Creator</dt>
@@ -61,13 +59,15 @@ const Detail = ({item, isLoading, onDislike, onLike}) => {
         <FooterNav />
         <div className={classes.actions}>
           <button className={classes.dislike} onClick={onDislike} />
-          <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>Buy</a>
+          <a href={buyLink} target="_blank" rel="noreferrer" className={classes.buy}>
+            Buy
+          </a>
           {/*<button className={classes.bid}>Bid</button>*/}
           <button className={classes.like} onClick={onLike} />
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default Detail;

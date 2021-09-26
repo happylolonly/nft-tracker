@@ -4,25 +4,45 @@ import classes from './Filter.module.scss';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Dropdown from './components/Dropdown/Dropdown';
 import Range from 'components/Filters/components/Dropdown/Range';
+import { Categories, SaleType } from 'api/rarible';
 
-const Filter = ({ setFilter, showFilters, filterOpenHandler }) => {
-  const ref = useRef(null);
-  const [{ start, end }, setRangeValue] = useState(null);
-
-  const [{ categories, saleType }, setState] = useState({
+const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
+  const [filters, setFilters] = useState({
     categories: undefined,
     saleType: undefined,
   });
 
-  const setCategories = (value) => {
-    setState((prevState) => ({ ...prevState, categories: value }));
-  };
+  const ref = useRef(null);
+  const [{ start, end }, setRangeValue] = useState({
+    start: 0,
+    end: 10,
+  });
 
-  const setSaleType = (value) => {
-    setState((prevState) => ({ ...prevState, saleType: value }));
-  };
+  function handleFitler(value, name) {
+    setFilters({
+      ...filters,
+      [name]: value,
+    });
+
+    filterOpenHandler(false);
+  }
+
+  useEffect(() => {
+    const { minPrice, maxPrice } = filters;
+    getItems({
+      category: filters.categories?.toLowerCase(),
+      saleType: filters.saleType,
+      minPrice,
+      maxPrice,
+    });
+  }, [filters, getItems]);
 
   const handleRangeChange = (start, end) => {
+    // setFilters({
+    //   ...filters,
+    //   minPrice: start,
+    //   maxPrice: end,
+    // });
     setRangeValue({ start, end });
   };
 
@@ -62,41 +82,43 @@ const Filter = ({ setFilter, showFilters, filterOpenHandler }) => {
             <li className={classes.filterItem}>
               <Dropdown
                 label="Categories"
-                value={categories}
+                value={filters.categories}
                 options={[
                   { title: 'Art', value: 'Art' },
                   { title: 'Games', value: 'Games' },
-                  { title: 'Metaverses', value: 'Metaverses' },
+                  { title: 'Metaverses', value: Categories.worlds },
                   { title: 'Music', value: 'Music' },
-                  { title: 'Domains', value: 'Domains' },
+                  { title: 'Domains', value: Categories.domains },
                   { title: 'DeFi', value: 'DeFi' },
                   { title: 'Memes', value: 'Memes' },
+                  { title: 'Punks', value: Categories.punks },
+                  { title: '🔞 NSFW', value: Categories.nsfw },
                 ]}
-                onChange={setCategories}
+                onChange={(value) => handleFitler(value.value, 'categories')}
               />
             </li>
             <li className={classes.filterItem}>
               <Dropdown
                 label="Sale type"
-                value={saleType}
+                value={filters.saleType}
                 options={[
-                  { title: 'Timed auction', value: 'Timed auction' },
-                  { title: 'Fixed price', value: 'Fixed price' },
-                  { title: 'Not for sale', value: 'Not for sale' },
-                  { title: 'Open for offers', value: 'Open for offers' },
+                  { title: 'Timed auction', value: SaleType.AUCTION },
+                  { title: 'Fixed price', value: SaleType.FIXED_PRICE },
+                  { title: 'Not for sale', value: SaleType.NOT_FOR_SALE },
+                  { title: 'Open for offers', value: SaleType.OPEN_FOR_OFFERS },
                 ]}
-                onChange={setSaleType}
+                onChange={(value) => handleFitler(value.value, 'saleType')}
               />
             </li>
             <li className={classes.filterItem}>
-              <div>
-                <h5>Price</h5>
-                <p className={classes.count}>
-                  {start} - {end} ETH
-                </p>
-                <div>
-                  <Range onChange={handleRangeChange} />
-                </div>
+              <div className={classes.priceBlock}>
+                <header>
+                  <h5>Price</h5>
+                  <span className={classes.count}>
+                    {start} - {end} ETH
+                  </span>
+                </header>
+                <Range onChange={handleRangeChange} />
               </div>
             </li>
           </ul>

@@ -61,7 +61,7 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
                 </button>
               </li>
               {options.map((v) => (
-                <li className={classes.option}>
+                <li className={classes.option} key={v.value}>
                   <button
                     className={classes.optionButton}
                     onClick={() => {
@@ -73,7 +73,7 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange }: Props) =
                     <div
                       className={[
                         classes.check,
-                        v.value === value?.value ? classes.selected : '',
+                        v.value === String(value) ? classes.selected : '',
                       ].join(' ')}
                     />
                   </button>

@@ -10,18 +10,17 @@ import cn from 'classnames';
 const alreadyRemoved = [];
 
 const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
-  const [lastDirection, setLastDirection] = useState();
+  // const [lastDirection, setLastDirection] = useState();
   const [dislike, setDislike] = useState(false);
   const [like, setLike] = useState(false);
   const childRefs = useRef();
-  console.log(lastDirection);
   useEffect(() => {
     setDislike(false);
     setLike(false);
   }, [item]);
 
   const swiped = (direction, nameToDelete) => {
-    setLastDirection(direction);
+    // setLastDirection(direction);
     alreadyRemoved.push(nameToDelete);
     if (direction === 'right') {
       setLike(true);
@@ -36,7 +35,7 @@ const SwipeComponent = ({ onLike, onDislike, item, isLoading }) => {
   };
 
   const outOfFrame = (dir) => {
-    console.log(dir);
+    // console.log(dir);
   };
 
   const swipe = (dir) => {
