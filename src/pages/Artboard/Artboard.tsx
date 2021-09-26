@@ -7,6 +7,14 @@ import { useParams, Link } from 'react-router-dom';
 import classes from '../LikedNfts/LikedNfts.module.scss';
 import styles from './Artboard.module.scss';
 import { TelegramIcon, TelegramShareButton } from 'react-share';
+import {
+  VKIcon,
+  VKShareButton,
+  TwitterShareButton,
+  TwitterIcon,
+  FacebookShareButton,
+  FacebookIcon,
+} from 'react-share';
 
 function Artboard() {
   const { user } = useMoralis();
@@ -58,10 +66,23 @@ function Artboard() {
           </div>
         );
       })}
-
+      <p
+        style={{
+          color: 'white',
+          paddingLeft: 10,
+        }}
+      >
+        Share to your audience
+      </p>
+      <TwitterShareButton title={artboard.name} url={document.URL}>
+        <TwitterIcon size={32} round={true} />
+      </TwitterShareButton>{' '}
       <TelegramShareButton title={artboard.name} url={document.URL}>
         <TelegramIcon size={32} round={true} />
-      </TelegramShareButton>
+      </TelegramShareButton>{' '}
+      <FacebookShareButton title={artboard.name} url={document.URL}>
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>{' '}
     </div>
   );
 }

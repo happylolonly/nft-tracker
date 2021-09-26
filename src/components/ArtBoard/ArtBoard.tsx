@@ -23,9 +23,9 @@ const ArtBoard: React.FC = ({ attr }) => {
         ))}
       </div>
       <div className={classes.name}>{name}</div>
-      <TelegramShareButton title={name} url={`https://nft-tracker.netlify.app/artboard/${attr.id}`}>
+      {/* <TelegramShareButton title={name} url={`https://nft-tracker.netlify.app/artboard/${attr.id}`}>
         <TelegramIcon size={32} round={true} />
-      </TelegramShareButton>
+      </TelegramShareButton> */}
       <div className={classes.items}>{items.length} items </div>
 
       {items.length === 0 && (
