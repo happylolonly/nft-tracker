@@ -31,8 +31,10 @@ const Login = () => {
     }
   }
 
-  const responseGoogle = (response) => {
-    console.log(response);
+  const responseGoogle = ({ tokenId }) => {
+    if (tokenId) {
+      setIsGoodleLogin(true);
+    }
   };
 
   return (
@@ -69,7 +71,7 @@ const Login = () => {
         <button className={styles.buttonWrapper} /* onClick={() => googleLoginHandler()} */>
           <div>
             <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              clientId="318848662372-u0evn2joukm9tmptur4th2btnosr3h52.apps.googleusercontent.com"
               buttonText="Login"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
