@@ -8,12 +8,12 @@ import { Categories, SaleType } from 'api/rarible';
 
 const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
   const [showPrice, setShowPrice] = useState(true);
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<any>({
     categories: undefined,
     saleType: undefined,
   });
 
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
   const [{ start, end }, setRangeValue] = useState({
     start: 0,
     end: 10,
@@ -96,7 +96,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
                   { title: 'Punks', value: Categories.punks },
                   { title: '🔞 NSFW', value: Categories.nsfw },
                 ]}
-                onChange={(value) => handleFitler(value.value, 'categories')}
+                onChange={(value: any) => handleFitler(value.value, 'categories')}
               />
             </li>
             <li className={classes.filterItem}>
@@ -110,7 +110,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
                   { title: 'Not for sale', value: SaleType.NOT_FOR_SALE },
                   { title: 'Open for offers', value: SaleType.OPEN_FOR_OFFERS },
                 ]}
-                onChange={(value) => handleFitler(value.value, 'saleType')}
+                onChange={(value: any) => handleFitler(value.value, 'saleType')}
               />
             </li>
             {showPrice && (
