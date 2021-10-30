@@ -1,4 +1,4 @@
-@import "Variables";
+@import 'Variables';
 
 .App {
   > img {
@@ -28,17 +28,17 @@ body {
     opacity: 0.8;
   }
 }
-.react-responsive-modal-root{
-  .react-responsive-modal-modal{
+.react-responsive-modal-root {
+  .react-responsive-modal-modal {
     background-color: #202020;
-    svg{
-      path{
+    svg {
+      path {
         fill: white;
       }
     }
   }
 }
 
-#root+div{
+#root + div {
   height: unset;
 }

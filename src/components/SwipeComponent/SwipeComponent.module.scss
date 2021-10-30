@@ -85,7 +85,7 @@
   width: 100%;
   justify-content: space-between;
   bottom: 10px;
-  padding: 0 ;
+  padding: 0;
   left: 50%;
   transform: translateX(-50%);
   max-width: var(--container_width);
@@ -124,7 +124,7 @@
     opacity: 1;
   }
   &.activeLike {
-    background-color: #0040E3;
+    background-color: #0040e3;
     opacity: 1;
   }
 }
