@@ -10,14 +10,7 @@ import { createArtboard, getArtboards } from '../../api';
 import ArtBoard from '../../components/ArtBoard/ArtBoard';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import {
-  VKIcon,
-  VKShareButton,
-  TelegramShareButton,
-  TelegramIcon,
-  TwitterShareButton,
-  TwitterIcon,
-} from 'react-share';
+import { TelegramShareButton, TelegramIcon, TwitterShareButton, TwitterIcon } from 'react-share';
 
 function LikedNfts() {
   const [items, setItems] = useState([]);
@@ -48,7 +41,7 @@ function LikedNfts() {
     if (!name) return;
     setNewName('');
     setIsOpen(false);
-    const d = await createArtboard(name, user);
+    await createArtboard(name, user);
     await getData();
   };
 
@@ -64,12 +57,14 @@ function LikedNfts() {
   const getData = async () => {
     if (user) {
       const d = await getArtboards(user);
-      console.log('d', d);
       setArtboards(d);
     }
   };
-  useEffect(async () => {
-    await getData();
+
+  useEffect(() => {
+    (async () => {
+      await getData();
+    })();
   }, [user]);
 
   useEffect(() => {

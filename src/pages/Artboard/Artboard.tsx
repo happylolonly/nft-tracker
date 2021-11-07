@@ -20,7 +20,7 @@ function Artboard() {
   const { user } = useMoralis();
 
   const { id } = useParams();
-  const [artboard, setArtboard] = useState({});
+  const [artboard, setArtboard] = useState<any>({});
 
   useEffect(() => {
     (async () => {
@@ -61,6 +61,7 @@ function Artboard() {
           // }
 
           return (
+            //@ts-ignore
             <div className={classes.card} to={`/detail/${item.id}`} key={name}>
               <Link to={`/detail/${item.id}`} key={name}>
                 <img src={imagePreview} alt={name} />

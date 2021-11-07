@@ -3,7 +3,7 @@ import leftIcon from '../../../assets/left.svg';
 import classes from './LeftIcon.module.scss';
 
 type Props = {
-  onClick?: (e: Event) => void;
+  onClick?: any;
   mirrorX?: boolean;
 };
 

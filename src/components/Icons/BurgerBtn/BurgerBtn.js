@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import classes from './BurgerBtn.module.scss';
 
 const BurgerBtn = ({ onLogout }) => {
-  const ref = useRef(null)
+  const ref = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
   const menuShowHandler = () => {
     setShowMenu(!showMenu);
@@ -11,7 +11,7 @@ const BurgerBtn = ({ onLogout }) => {
   useEffect(() => {
     const handleClick = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        console.log(false)
+        console.log(false);
         setShowMenu(false);
       }
     };

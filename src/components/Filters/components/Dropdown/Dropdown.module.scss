@@ -1,29 +1,29 @@
-.check{
+.check {
   width: 16px;
   height: 16px;
-  background: #3A3A3A;
+  background: #3a3a3a;
   margin: 0 10px;
   border-radius: 50%;
 }
 
-.selected{
-  background: #FFFFFF;
+.selected {
+  background: #ffffff;
 }
 
-.option{
+.option {
   height: 50px;
-  &:first-of-type{
-    border-bottom: 1px solid #3A3A3A;
+  &:first-of-type {
+    border-bottom: 1px solid #3a3a3a;
   }
 }
 
-.optionButton{
+.optionButton {
   border: unset;
   background-color: unset;
   align-items: center;
   padding: 0 10px;
   display: flex;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 16px;
   line-height: 20px;
   width: 100%;
@@ -31,17 +31,17 @@
   justify-content: space-between;
 }
 
-.values{
+.values {
   padding: 0 15px;
-  li{
+  li {
     list-style: none;
     text-align: left;
   }
 }
 
-.header{
+.header {
   display: flex;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -49,21 +49,21 @@
   border-width: 0;
   background-color: unset;
   width: 100%;
-  border-bottom: 1px solid #3A3A3A;
+  border-bottom: 1px solid #3a3a3a;
   padding: 10px 15px 20px;
 }
 
-.options{
+.options {
   position: absolute;
   z-index: 1;
   left: 0;
   top: 0;
   right: 0;
-  background-color: #2A2A2A;
+  background-color: #2a2a2a;
   overflow: auto;
 }
 
-.value{
+.value {
   color: #888888;
   font-weight: normal;
   font-size: 12px;
@@ -71,13 +71,13 @@
   margin-top: 4px;
   text-align: left;
 }
-.title{
+.title {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
-.dropdown{
+.dropdown {
   background-color: unset;
   border: unset;
   padding: 20px 0 30px 0;
