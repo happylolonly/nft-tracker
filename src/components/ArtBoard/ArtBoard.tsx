@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import classes from './ArtBoard.module.scss';
-import { TelegramIcon, TelegramShareButton } from 'react-share';
+
 const ArtBoard: React.FC<any> = ({ attr }) => {
   const { items = [], name } = attr.attributes;
   return (
