@@ -7,7 +7,7 @@ import Range from 'components/Filters/components/Dropdown/Range';
 import { Categories, SaleType } from 'api/rarible';
 
 const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
-  const [showPrice, setShowPrice] = useState(true);
+  const [showPrice, setShowPrice] = useState<boolean>(true);
   const [filters, setFilters] = useState<any>({
     categories: undefined,
     saleType: undefined,
@@ -59,7 +59,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-  }, [ref]);
+  }, [ref, setFilter]);
 
   return (
     <AnimatePresence>

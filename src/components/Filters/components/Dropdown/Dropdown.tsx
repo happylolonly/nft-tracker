@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Dropdown: React.FC<Props> = ({ label, value, options, onChange, setShowPrice }: Props) => {
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   useEffect(() => {
     if (showOptions) {
@@ -25,7 +25,7 @@ const Dropdown: React.FC<Props> = ({ label, value, options, onChange, setShowPri
     } else {
       setShowPrice(true);
     }
-  }, [showOptions]);
+  }, [setShowOptions, setShowPrice, showOptions]);
 
   return (
     <button
