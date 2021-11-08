@@ -20,6 +20,8 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'react/jsx-key': 'off',
