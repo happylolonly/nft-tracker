@@ -26,13 +26,17 @@ const HomePage = () => {
 
   const Likes = useNewMoralisObject('Likes');
 
-  useEffect(async () => {
+  const getArtboard = useCallback(async () => {
     if (user) {
       const d = await getArtboards(user);
       console.log('d', d);
       setArtboards(d);
     }
   }, [user]);
+
+  useEffect(() => {
+    getArtboard();
+  }, [getArtboard, user]);
 
   const getAllItems = useCallback(async (filters) => {
     setLoading(true);

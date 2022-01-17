@@ -1,19 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classes from './Filter.module.scss';
 import FilterIcon from '../Icons/FilterIcon/FilterIcon';
 import Dropdown from './components/Dropdown/Dropdown';
 import Range from 'components/Filters/components/Dropdown/Range';
 import { Categories, SaleType } from 'api/rarible';
+import { ValueType } from 'types';
+
+type FiltersType = {
+  minPrice?: string;
+  maxPrice?: string;
+  categories: ValueType | undefined;
+  saleType: ValueType | undefined;
+};
 
 const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
-  const [showPrice, setShowPrice] = useState(true);
-  const [filters, setFilters] = useState<any>({
+  const [showPrice, setShowPrice] = useState<boolean>(true);
+  const [filters, setFilters] = useState<FiltersType>({
     categories: undefined,
     saleType: undefined,
   });
 
-  const ref = useRef<any>(null);
+  const ref = useRef() as MutableRefObject<HTMLDivElement>;
   const [{ start, end }, setRangeValue] = useState({
     start: 0,
     end: 10,
@@ -31,6 +39,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
   useEffect(() => {
     const { minPrice, maxPrice } = filters;
     getItems({
+      //@ts-ignore
       category: filters.categories?.toLowerCase(),
       saleType: filters.saleType,
       minPrice,
@@ -59,7 +68,7 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-  }, [ref]);
+  }, [ref, setFilter]);
 
   return (
     <AnimatePresence>
@@ -96,7 +105,11 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
                   { title: 'Punks', value: Categories.punks },
                   { title: '🔞 NSFW', value: Categories.nsfw },
                 ]}
-                onChange={(value: any) => handleFitler(value.value, 'categories')}
+                onChange={(value: ValueType | null) => {
+                  if (value) {
+                    handleFitler(value.value, 'categories');
+                  }
+                }}
               />
             </li>
             <li className={classes.filterItem}>
@@ -110,7 +123,11 @@ const Filter = ({ showFilters, filterOpenHandler, getItems, setFilter }) => {
                   { title: 'Not for sale', value: SaleType.NOT_FOR_SALE },
                   { title: 'Open for offers', value: SaleType.OPEN_FOR_OFFERS },
                 ]}
-                onChange={(value: any) => handleFitler(value.value, 'saleType')}
+                onChange={(value: ValueType | null) => {
+                  if (value) {
+                    handleFitler(value.value, 'saleType');
+                  }
+                }}
               />
             </li>
             {showPrice && (

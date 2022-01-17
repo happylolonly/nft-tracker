@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Link } from 'react-router-dom';
@@ -54,18 +54,18 @@ function LikedNfts() {
       items: images,
     });
   };
-  const getData = async () => {
+  const getData = useCallback(async () => {
     if (user) {
       const d = await getArtboards(user);
       setArtboards(d);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     (async () => {
       await getData();
     })();
-  }, [user]);
+  }, [getData, user]);
 
   useEffect(() => {
     (async () => {
@@ -147,7 +147,7 @@ function LikedNfts() {
             </Modal>
             <div className={classes.artBoardWrapper}>
               {artboards.map((art) => (
-                <ArtBoard attr={art} />
+                <ArtBoard attr={art} key={art.attributes.name} />
               ))}
             </div>
           </div>
@@ -224,6 +224,7 @@ function LikedNfts() {
                         addToArtboard(addToArtboardModalIsOpen, index);
                         setAddToArtboardModalIsOpen(false);
                       }}
+                      key={art.attributes.name}
                     >
                       {art.attributes.name}
                     </button>

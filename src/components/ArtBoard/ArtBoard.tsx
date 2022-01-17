@@ -1,9 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AttributesType } from 'types';
 
 import classes from './ArtBoard.module.scss';
 
-const ArtBoard: React.FC<any> = ({ attr }) => {
+type PropsType = {
+  attr: {
+    attributes: AttributesType;
+    id: string;
+  };
+};
+
+const ArtBoard: React.FC<PropsType> = ({ attr }) => {
   const { items = [], name } = attr.attributes;
   return (
     <Link
@@ -16,8 +24,9 @@ const ArtBoard: React.FC<any> = ({ attr }) => {
       className={classes.artBoard}
     >
       <div className={classes.imageWrapper}>
-        {items.slice(0, 3).map((i) => (
-          <div className={classes.image}>
+        {items.slice(0, 3).map((i, index) => (
+          <div className={classes.image} key={index}>
+            {/* @ts-ignore */}
             <img src={i?.meta?.image?.url?.PREVIEW} alt={i} />
           </div>
         ))}

@@ -15,12 +15,13 @@ import {
   FacebookShareButton,
   FacebookIcon,
 } from 'react-share';
+import { ArtboardType } from 'types';
 
 function Artboard() {
   const { user } = useMoralis();
 
   const { id } = useParams();
-  const [artboard, setArtboard] = useState<any>({});
+  const [artboard, setArtboard] = useState<ArtboardType>({});
 
   useEffect(() => {
     (async () => {
@@ -43,7 +44,7 @@ function Artboard() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [id, user]);
 
   return (
     <div className={styles.wrraper}>
@@ -61,9 +62,8 @@ function Artboard() {
           // }
 
           return (
-            //@ts-ignore
-            <div className={classes.card} to={`/detail/${item.id}`} key={name}>
-              <Link to={`/detail/${item.id}`} key={name}>
+            <div className={classes.card} key={name}>
+              <Link to={`/detail/${item.id}`}>
                 <img src={imagePreview} alt={name} />
               </Link>
               <div className={classes.cardName}>{name} </div>
